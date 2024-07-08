@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
     Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   end
 
-  spec.add_dependency "rails", ">= 7.2.0.beta1"
+  spec.add_dependency "rails", ">= 7.1", "< 7.3"
   # spec.add_dependency "bravura_template_base", "~> 0.1.0"
 
   spec.add_development_dependency "rspec-rails"
@@ -35,5 +35,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "shoulda-matchers"
   spec.add_development_dependency "faker"
   spec.add_development_dependency "webmock"
-
 end
