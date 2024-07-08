@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Bravura template normal</title>
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
+  <head>
+    <title><%= content_for?(:title) ? yield(:title) : "Bravura Pro" %></title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
 
-  <%= stylesheet_link_tag    "bravura_template_normal/application", media: "all" %>
-</head>
-<body>
+    <%= stylesheet_link_tag "bravura_template_normal/application", media: "all" %>
+    <%= javascript_include_tag "bravura_template_normal/application", defer: true %>
+  </head>
 
-<%= yield %>
-
-</body>
+  <body>
+    <%= yield %>
+  </body>
 </html>
