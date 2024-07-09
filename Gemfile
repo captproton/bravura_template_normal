@@ -14,6 +14,8 @@ gem "sprockets-rails"
 gem "rubocop-rails-omakase", require: false
 
 group :development do
+  gem "standard"
+  gem "rubocop-standard", require: false
 end
 
 # Include bravura_template_base from git

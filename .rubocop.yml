@@ -1,6 +1,13 @@
 # Omakase Ruby styling for Rails
+# .rubocop.yml
+
+# Existing configurations
 inherit_gem:
-  rubocop-rails-omakase: rubocop.yml
+  rubocop-standard: config/standard.yml
+
+# Custom "Omakase" style configurations
+Style/Documentation:
+  Enabled: false
 
 # Specify Ruby version for RuboCop
 AllCops:
