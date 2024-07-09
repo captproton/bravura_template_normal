@@ -17,14 +17,13 @@ group :development do
 end
 
 # Include bravura_template_base from git
-gem 'bravura_template_base', github: 'captproton/bravura_template_base', branch: 'main'
+gem "bravura_template_base", github: "captproton/bravura_template_base", branch: "main"
 
 group :development, :test do
-  gem 'rspec-rails'
-  gem 'factory_bot_rails'
-  gem 'faker'
-  gem 'brakeman', require: false
-
+  gem "rspec-rails"
+  gem "factory_bot_rails"
+  gem "faker"
+  gem "brakeman", require: false
 end
 
 # Start debugger with binding.b [https://github.com/ruby/debug]
