@@ -1,0 +1,26 @@
+<%# app/views/bravura_template_normal/blog/index.html.erb %>
+
+<h1><%= @blog_constants[:blog_title] %></h1>
+
+<section class="featured-articles">
+  <h2>Featured Articles</h2>
+  <% @featured_articles.each do |article| %>
+    <%= render 'article_card', article: article %>
+  <% end %>
+</section>
+
+<section class="all-articles">
+  <h2>All Articles</h2>
+  <% @articles.each do |article| %>
+    <%= render 'article_card', article: article %>
+  <% end %>
+</section>
+
+<%= pagy_nav(@pagy) %>
+
+<aside class="tags">
+  <h3>Tags</h3>
+  <% @tags.each do |tag| %>
+    <%= link_to tag.name, tag_path(tag.name), class: 'tag' %>
+  <% end %>
+</aside>

@@ -1,0 +1,11 @@
+<%# app/views/bravura_template_normal/blog/_article_card.html.erb %>
+
+<article class="article-card">
+  <h3><%= link_to article.title, blog_path(article) %></h3>
+  <p class="meta">
+    Published on <%= article.published_at.strftime('%B %d, %Y') %>
+    by <%= article.author&.name %>
+  </p>
+  <p class="excerpt"><%= truncate(article.content, length: 150) %></p>
+  <%= link_to 'Read more', blog_path(article), class: 'read-more' %>
+</article>
