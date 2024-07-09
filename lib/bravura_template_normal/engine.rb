@@ -1,7 +1,8 @@
+# lib/bravura_template_normal/engine.rb
 require "bravura_template_base"
 
 module BravuraTemplateNormal
-  class Engine < BravuraTemplateBase::Engine
+  class Engine < ::Rails::Engine
     isolate_namespace BravuraTemplateNormal
 
     # Configuration options
