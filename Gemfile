@@ -14,8 +14,6 @@ gem "sprockets-rails"
 gem "rubocop-rails-omakase", require: false
 
 group :development do
-  gem "standard"
-  gem "rubocop-standard", require: false
 end
 
 # Include bravura_template_base from git
@@ -26,6 +24,9 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "faker"
   gem "brakeman", require: false
+  gem "standard"
+  gem "rubocop-standard", require: false
+
 end
 
 # Start debugger with binding.b [https://github.com/ruby/debug]
