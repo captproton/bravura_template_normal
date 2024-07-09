@@ -3,8 +3,8 @@ require_relative "lib/bravura_template_normal/version"
 Gem::Specification.new do |spec|
   spec.name = "bravura_template_normal"
   spec.version = BravuraTemplateNormal::VERSION
-  spec.authors = ["captproton"]
-  spec.email = ["carl@wdwhub.net"]
+  spec.authors = [ "captproton" ]
+  spec.email = [ "carl@wdwhub.net" ]
   spec.homepage = "https://github.com/captproton/bravura_template_product_updates"
   spec.summary = "The default template for the Bravura platform."
   spec.description = "BravuraTemplateNormal provides the default layout for the Bravura platform."
