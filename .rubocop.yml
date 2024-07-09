@@ -1,5 +1,10 @@
 # Omakase Ruby styling for Rails
-inherit_gem: { rubocop-rails-omakase: rubocop.yml }
+inherit_gem:
+  rubocop-rails-omakase: rubocop.yml
+
+# Specify Ruby version for RuboCop
+AllCops:
+  TargetRubyVersion: 3.2
 
 # Overwrite or add rules to create your own house style
 #
