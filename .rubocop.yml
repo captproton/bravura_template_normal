@@ -1,5 +1,10 @@
 # .rubocop.yml
-require: rubocop-rails
+require:
+  - rubocop-rails
+  - rubocop-capybara
+  - rubocop-factory_bot
+  - rubocop-rspec
+
 
 AllCops:
   NewCops: enable
