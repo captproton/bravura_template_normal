@@ -1,5 +1,5 @@
 # BravuraTemplateNormal
-Short description and motivation.
+Short description and motivation -- to provide more flexibility to the main application
 
 ## Usage
 How to use my plugin.
