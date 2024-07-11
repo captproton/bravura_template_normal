@@ -1,0 +1,44 @@
+<div class="normal-article group relative">
+	<%= link_to blog_path(article), class: "article-cover aspect-w-16 aspect-h-8 block overflow-hidden bg-secondary-200 rounded-lg", data: { umami_event: "Clicked Link: #{blog_path(article)}", umami_href: "#{blog_path(article)}" } do %>
+	<span class="sr-only">
+		<%= article.title %>
+	</span>
+	<%= image_tag url_for(article.cover), alt: article.title, class: "h-full w-full object-cover transition-all duration-100 group-hover:opacity-75", loading: "lazy" %> <% end %>
+	<div class="mt-6">
+		<div class="flex flex-wrap items-center space-x-2">
+			<div class="article-author flex items-center">
+				<div class="flex-shrink-0">
+					<%= link_to author_path(article.author), class: "", data: { umami_event: "Clicked Link: #{author_path(article.author)}", umami_href: "#{author_path(article.author)}" } do %>
+					<span class="sr-only">
+						<%= article.author.name %>
+					</span>
+					<%= image_tag "https://cdn.feather.blog?src=https%3A%2F%2Fusenotioncms.com%2Fproxy%2Fblock%2F4ae0aebf-c670-43a2-9116-e56bb9892f05%252F10ebc1a9-6ca8-41f8-96d3-42e13086978a%252F14.png&amp;optimizer=image", alt:
+					article.author.name, class: "h-5 w-5 mr-2 rounded-full" %> <% end %>
+				</div>
+				<div>
+					<p class="text-sm font-semibold text-secondary-900">
+						<%= link_to article.author.name, author_path(article.author), class: "", data: { umami_event: "Clicked Link: #{author_path(article.author)}", umami_href: "#{author_path(article.author)}" } %>
+					</p>
+				</div>
+			</div>
+			<p class="article-publish-date-separator text-sm font-medium text-secondary-500">/</p>
+			<p class="article-publish-date text-sm font-medium text-secondary-500">
+				<time datetime="2023-07-07">
+					<%= article.published_at&.strftime("%b %d, %Y") %>
+				</time>
+			</p>
+		</div>
+		<%= link_to blog_path(article), class: "block mt-4", data: { umami_event: "Clicked Link: #{blog_path(article)}", umami_href: "#{blog_path(article)}" } do %>
+		<h3 class="article-title text-xl font-bold tracking-tight text-secondary-900">
+			<%= article.title %>
+		</h3>
+		<p class="article-excerpt text-base font-medium text-secondary-500 line-clamp-3 mt-3">
+			<%= article.excerpt %>
+		</p>
+		<% end %>
+		<div class="article-tags-list flex flex-wrap mt-5">
+			<%= link_to "Tag", "#", class: "article-tag inline-flex items-center bg-secondary-100 text-xs font-bold text-secondary-600 transition-all duration-200 mr-2 mb-2 rounded-full px-2.5 py-0.5 hover:bg-secondary-200
+			hover:text-secondary-900", data: { umami_event: "Clicked Link: #", umami_href: "#" } %>
+		</div>
+	</div>
+</div>
