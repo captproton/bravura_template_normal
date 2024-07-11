@@ -1,0 +1,36 @@
+<div class="flex max-w-[var(--notion-max-width)] flex-col items-center mx-auto mt-8 border-t border-secondary-200 px-[calc(min(16px,8vw))] pt-8 sm:flex-row sm:items-start sm:mt-12 sm:pt-12">
+  <%= link_to author_path(author),
+    class: "h-24 w-24 shrink-0 overflow-hidden object-cover ring-1 ring-secondary-100 rounded-full",
+    data: { umami_event: "Clicked Link: author_path(author)",
+    umami_href: author_path(author) } do %>
+    <% if author.avatar.attached? %>
+      <%= image_tag author.avatar, alt: author.name, class: "inline-block h-16 w-16 flex-shrink-0 object-cover rounded-full lg:h-24 lg:w-24" %>
+    <% else %>
+      <%= image_tag "default_avatar.jpg", alt: "Default Avatar", class: "inline-block h-16 w-16 flex-shrink-0 object-cover rounded-full lg:h-24 lg:w-24" %>
+    <% end %>
+  <% end %>
+  <div class="mt-6 text-center sm:ml-6 sm:mt-0 sm:text-left">
+    <div class="flex items-start justify-center sm:justify-between">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-widest text-secondary-400">Written by</p>
+        <p class="text-2xl font-bold text-secondary-900 mt-2">
+          <%= link_to author.name, author_path(author), class: "", data: { umami_event: "Clicked Link: author_path(author)", umami_href: author_path(author) } %>
+        </p>
+      </div>
+    </div>
+    <p class="text-base font-normal text-secondary-600 mt-3 sm:text-lg"><%= author.bio %></p>
+    <ul class="flex items-center justify-center mt-6 space-x-4 sm:justify-start">
+      <% author.social_links.each do |link| %>
+        <li>
+          <%= link_to link.url, target: "_blank", rel: "noopener", class: "text-secondary-500 hover:text-secondary-700", data: { umami_event: "Clicked Link: #{link.url}", umami_href: link.url } do %>
+            <span class="sr-only"><%= link.name %></span>
+            <%= render_svg "blog_tempates/#{@machined_blog_template_name}/#{link.name.parameterize}",
+              class: "h-5 w-5",
+              alt: link.name %>
+
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
