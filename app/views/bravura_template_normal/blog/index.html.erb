@@ -1,0 +1,4 @@
+<%= render "bravura_template_normal/blog/index/section_hero" %>
+<%= render "bravura_template_normal/blog/index/section_articles" %>
+<%= (@design_settings&.blog_theme&.name.to_s.presence || "base") %>
+<%= link_to @current_account.name, "/" %>

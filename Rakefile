@@ -1,8 +1,18 @@
-require "bundler/setup"
+# Rakefile
+# frozen_string_literal: true
 
-APP_RAKEFILE = File.expand_path("spec/dummy/Rakefile", __dir__)
-load "rails/tasks/engine.rake"
+require 'bundler/setup'
 
-load "rails/tasks/statistics.rake"
+APP_RAKEFILE = File.expand_path('spec/dummy/Rakefile', __dir__)
+load 'rails/tasks/engine.rake'
+load 'rails/tasks/statistics.rake'
+require 'bundler/gem_tasks'
 
-require "bundler/gem_tasks"
+namespace :assets do
+  desc 'Build JavaScript assets'
+  task build: :environment do
+    sh 'yarn build'
+  end
+end
+
+Rake::Task['assets:precompile'].enhance(['assets:build']) if Rake::Task.task_defined?('assets:precompile')

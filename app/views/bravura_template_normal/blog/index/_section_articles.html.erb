@@ -1,0 +1,26 @@
+<%= render partial: '/layouts/normal/index/featured_articles', locals: { articles: @featured_articles } if @featured_articles.present?
+%>
+<section id="all-posts" class="normal-articles-list bg-white py-12 sm:py-16 lg:py-20">
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+		<h2 class="text-xl font-bold text-secondary-900 sm:text-2xl">All posts</h2>
+		<div class="relative grid grid-cols-1 items-start gap-16 mt-8 lg:grid-cols-12">
+			<%= render partial: '/layouts/normal/tag_list', locals: { tags: @tags } %>			<div class="lg:col-span-9">
+				<div class="articles-grid grid grid-cols-1 gap-8 sm:grid-cols-2 lg:gap-y-12 xl:grid-cols-3">
+					<!-- normal article -->
+
+					<%= render partial: '/layouts/normal/article_card',
+						collection: @articles,
+						as: :article %>
+
+				</div>
+				<hr class="mt-12 border-secondary-200" />
+				<% if @pagy.pages > 1 %>
+					<div class="my-6 flex items-center justify-center">
+						<%== pagy_nav(@pagy) %>
+        	</div>
+      	<% end %>
+
+			</div>
+		</div>
+	</div>
+</section>

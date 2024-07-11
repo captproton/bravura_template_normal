@@ -1,0 +1,82 @@
+<div class="lg:sticky lg:col-span-3 lg:top-28">
+	<p class="text-xs font-bold uppercase tracking-widest text-secondary-500">Table of Contents</p>
+	<div class="relative mt-5">
+		<ul class="h-full max-h-[50vh] overflow-y-auto space-y-5 pb-20 list-none">
+			<li>
+				<%= link_to @article.title, blog_path(@article, anchor: @article_title_machined),
+				    style: 'margin-left:calc(var(--toc-gap) * 0)',
+				    class: 'block text-base font-semibold hover:text-secondary-900 text-secondary-900',
+				    data: {
+					umami_event: "Clicked Link: #{blog_path(@article, anchor: @article_title_machined)}",
+					umami_href: "#{blog_path(@article, anchor: @article_title_machined)}" } %>
+			</li>
+			<%# FIXME: This is a temporary fix for the table of contents %>
+			<%# JSON.parse(@toc_data).each do |item| %>
+				<li>
+					<%#= link_to item['title'],
+						"#{request.path}##{item['id']}",
+						style: "margin-left:calc(var(--toc-gap) * #{item['level'] - 1})",
+						class: 'block text-base font-semibold hover:text-secondary-900 text-secondary-900',
+						data: {
+							umami_event: "Clicked Link: #{item['id']}",
+							umami_href: item['id']
+							} %>
+				</li>
+			<%# end %>
+		</ul>
+		<div class="pointer-events-none absolute h-16 w-full bg-gradient-to-b from-transparent to-white inset-x-0 bottom-0"></div>
+	</div>
+	<hr class="mt-8 border-secondary-200" />
+	<ul class="share-this-article-sidebar flex mt-8 space-x-3">
+	<li>
+		<%= button_tag type: 'button',
+									 class: 'inline-flex h-11 w-11 items-center justify-center bg-white text-secondary-500 rounded-lg border border-secondary-200 hover:bg-secondary-50 hover:text-secondary-900',
+									 'aria-label' => 'Copy the Canonical link',
+									 'data-canonical' => @article_canonical_url do %>
+			<svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+				></path>
+			</svg>
+		<% end %>
+	</li>
+	<li>
+		<%= link_to "https://twitter.com/share?url=#{request.original_url}&text=Check%20out%20this%20article:%20#{CGI::escape(@article.title)}",
+								target: "_blank",
+								rel: "noopener",
+								class: "inline-flex h-11 w-11 items-center justify-center bg-white text-secondary-500 rounded-lg border border-secondary-200 hover:bg-secondary-50 hover:text-secondary-900",
+								'data-umami-event': "Clicked Link: https://twitter.com/share?url=#{request.original_url}&text=Check%20out%20this%20article:%20#{CGI::escape(@article.title)}",
+								'data-umami-href': "https://twitter.com/share?url=#{request.original_url}&text=Check%20out%20this%20article:%20#{CGI::escape(@article.title)}",
+								'aria-label': "Share on Twitter" do %>
+			<%= render_svg "blog_tempates/normal/twitter" %>
+		<% end %>
+	</li>
+	<li>
+		<%= link_to "https://www.facebook.com/sharer/sharer.php?u=#{request.original_url}",
+			target: "_blank",
+			rel: "noopener",
+			class: "inline-flex h-11 w-11 items-center justify-center bg-white text-secondary-500 rounded-lg border border-secondary-200 hover:bg-secondary-50 hover:text-secondary-900",
+			'data-umami-event': "Clicked Link: https://www.facebook.com/sharer/sharer.php?u=#{request.original_url}",
+			'data-umami-href': "https://www.facebook.com/sharer/sharer.php?u=#{request.original_url}",
+			'aria-label': "Share on Facebook" do %>
+			<%= render_svg "blog_tempates/normal/facebook" %>
+		<% end %>
+	</li>
+	<li>
+		<%= link_to "https://www.linkedin.com/share?url=#{request.original_url}",
+			target: "_blank",
+			rel: "noopener",
+			class: "inline-flex h-11 w-11 items-center justify-center bg-white text-secondary-500 rounded-lg border border-secondary-200 hover:bg-secondary-50 hover:text-secondary-900",
+			'data-umami-event': "Clicked Link: https://www.linkedin.com/share?url=#{request.original_url}",
+			'data-umami-href': "https://www.linkedin.com/share?url=#{request.original_url}",
+			'aria-label': "Share on LinkedIn" do %>
+				<%= render_svg "blog_tempates/normal/linked_in" %>
+
+		<% end %>
+	</li>
+</ul>
+
+	</div>
