@@ -1,0 +1,40 @@
+<div class="normal-article group relative">
+	<%= link_to blog_url(article), class: "article-cover aspect-w-16 aspect-h-8
+   block overflow-hidden bg-secondary-200 rounded-lg", data: { umami_event: "Clicked Link: #{blog_path(article)}", umami_href: blog_path(article) } do %>
+	  <span class="sr-only"><%= article.title %></span>
+    <% if !article.hide_cover %>
+      <%= image_tag(url_for(article.cover), alt: article.title, class: "h-full w-full object-cover transition-all duration-100 group-hover:opacity-75") %>
+    <% else %>
+      <div class="h-full w-full object-cover transition-all duration-100 group-hover:opacity-75" style="background-color: #cccccc;"></div>
+    <% end %>
+  <% end %>
+	<div class="mt-6">
+		<div class="flex flex-wrap items-center space-x-2">
+			<div class="article-author flex items-center">
+				<div class="flex-shrink-0">
+				</div>
+				<div>
+					<p class="text-sm font-semibold text-secondary-900">
+            <%= link_to article.author.name, author_url(article.author),
+              class: "",
+              data: { umami_event: "Clicked Link: #{author_path(article.author)}", umami_href: author_path(article.author) } %>
+					</p>
+				</div>
+			</div>
+			<p class="article-publish-date-separator text-sm font-medium text-secondary-500">/</p>
+      <p class="article-publish-date text-sm font-medium text-secondary-500">
+        <time datetime="<%= article.published_at&.strftime("%Y-%m-%d") %>">
+          <%= article.published_at&.strftime("%b %d, %Y") %>
+        </time>
+      </p>
+		</div>
+    <%= link_to blog_url(article),
+      class: "block mt-4",
+      data: { umami_event: "Clicked Link: #{blog_path(article)}", umami_href: blog_path(article) } do %>
+      <h3 class="article-title text-xl font-bold tracking-tight text-secondary-900"><%= article.title %></h3>
+      <p class="article-excerpt text-base font-medium text-secondary-500 line-clamp-3 mt-3">
+      <%= article.excerpt %>
+      </p>
+    <% end %>
+	</div>
+</div>

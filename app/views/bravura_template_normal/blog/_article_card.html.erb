@@ -6,6 +6,6 @@
     Published on <%= article.published_at.strftime('%B %d, %Y') %>
     by <%= article.author&.name %>
   </p>
-  <p class="excerpt"><%= truncate(article.content, length: 150) %></p>
+  <p class="excerpt"><%#= truncate(article.content, length: 150) %></p>
   <%= link_to 'Read more', blog_path(article), class: 'read-more' %>
 </article>

@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/captproton/bravura_template_base.git
-  revision: fde84c66af25241c78ed7d0eb3a70746667adf49
+  revision: 0962e6b261c798c6c85a2449c18aa22c7a68030b
   branch: main
   specs:
     bravura_template_base (0.1.0)
@@ -11,6 +11,7 @@ PATH
   specs:
     bravura_template_normal (0.1.0)
       bravura_template_base (~> 0.1.0)
+      jsbundling-rails (~> 1.2.1)
       rails (>= 7.1, < 7.3)
 
 GEM
@@ -117,6 +118,8 @@ GEM
     docile (1.4.0)
     drb (2.2.1)
     erubi (1.13.0)
+    esbuild-rails (0.1.4)
+      rails (>= 6.0.0)
     factory_bot (6.4.6)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.4.3)
@@ -133,6 +136,8 @@ GEM
     irb (1.14.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
+    jsbundling-rails (1.2.2)
+      railties (>= 6.0.0)
     json (2.7.2)
     language_server-protocol (3.17.0.3)
     launchy (3.0.1)
@@ -378,6 +383,7 @@ DEPENDENCIES
   bravura_template_normal!
   capybara
   database_cleaner-active_record
+  esbuild-rails (~> 0.1.4)
   factory_bot_rails
   faker
   launchy

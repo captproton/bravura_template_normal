@@ -1,0 +1,8 @@
+<%= link_to url, target: "_blank", rel: "noopener", class: "nav-link nav-link-left nav-link-EXTERNAL_LINK nav-link-f227cb3e-379c-47a0-8e50-d3f8c847be45 group inline-flex items-center justify-center gap-1 text-base transition-all duration-200 rounded-cta-button-radius px-3 py-1.5 hover:bg-secondary-100 focus:outline-none focus:ring-2 focus:ring-offset-2 font-medium text-secondary-500 hover:text-secondary-900 focus:ring-secondary-900", data: { umami_event: "Clicked Link: #{url}", umami_href: url } do %>
+    <%= name %>
+    <% if url != live_content_root_url %>
+      <svg class="external-link-icon h-5 w-5 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7 17L17 7M17 7H7M17 7V17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    <% end %>
+<% end %>

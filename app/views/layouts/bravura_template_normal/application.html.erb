@@ -1,15 +1,31 @@
 <!DOCTYPE html>
-<html>
+<%= content_tag :html, dir: "ltr", lang: "en", class: "scroll-smooth antialiased selection:bg-primary-500 selection:text-primary-50", data: { theme: @blog_theme, graytheme: "gray#{@shade_of_gray}", mode: @site_mode } do %>
+
   <head>
-    <title><%= content_for?(:title) ? yield(:title) : "Bravura Pro" %></title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+    <%# content that is common to all templates goes here in the blog_head %>
+    <%= render partial: "/shared/blog_head", locals: {article: @article, current_account: current_account} %>
+    <!-- Include your common stylesheets, meta tags, etc. here -->
 
-    <%= stylesheet_link_tag "bravura_template_normal/application", media: "all" %>
-    <%= javascript_include_tag "bravura_template_normal/application", defer: true %>
   </head>
+  <body class="overflow-x-hidden bg-white font-sans text-secondary-900 antialiased">
+		<div style="position:fixed;z-index:9999;top:16px;left:16px;right:16px;bottom:16px;pointer-events:none"></div>
+      <!-- Site navigation content goes here -->
+      <%= render partial: "/layouts/bravura_template_normal/top_nav" %>
 
-  <body>
-    <%= yield %>
+      <main>
+        <!-- Main content goes here -->
+        <%= yield %>
+        <%= render partial: "layouts/default/cta" %>
+      </main>
+
+      <footer>
+        <!-- Footer content goes here -->
+        <%= render partial: "/layouts/bravura_template_normal/footer" %>
+
+      </footer>
+    </div>
+    <!-- Include your common JavaScript files, scripts, etc. here -->
+    <%= javascript_include_tag 'application' %>
+    <%= render partial: "/layouts/bravura_template_normal/javascript" %>
   </body>
-</html>
+<% end %>
