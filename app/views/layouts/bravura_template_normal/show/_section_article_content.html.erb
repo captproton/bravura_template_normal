@@ -1,7 +1,7 @@
 <section class="normal-post-content bg-white py-12 sm:py-16 lg:py-20">
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="grid grid-cols-1 items-start gap-y-12 gap-x-16 lg:grid-cols-12">
-		<%= render "/layouts/normal/show/toc_plus_social" %>
+		<%= render "bravura_template_normal/blog/show/toc_plus_social" %>
 		<div class="lg:col-span-9">
 				<div>
 					<main
@@ -30,8 +30,8 @@
 						<%= @article.body_copy %>
 					</main>
 				</div>
-				<%= render partial: "layouts/normal/show/cta_small" %>
-				<%= render partial: 'layouts/normal/show/section_article_author', locals: { author: @article.author } %>
+				<%= render partial: "bravura_template_normal/blog/show/cta_small" %>
+				<%= render partial: 'bravura_template_normal/blog/show/section_article_author', locals: { author: @article.author } %>
 				</div>
 		</div>
 	</div>
