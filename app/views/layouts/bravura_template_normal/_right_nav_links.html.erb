@@ -1,0 +1,14 @@
+<div class="nav-link-wrapper-left hidden lg:flex lg:items-center lg:justify-end lg:gap-4 lg:ml-auto lg:mr-8">
+  <%= link_to 'Blog Home',
+    live_content_root_path,
+    class: 'nav-link nav-link-left nav-link-GENERATED_PAGE nav-link-3fcd12e9-1b30-4b8d-9f02-76ed1ba17043 group inline-flex items-center justify-center gap-1 text-base transition-all duration-200 rounded-cta-button-radius px-3 py-1.5 hover:bg-secondary-100 focus:outline-none focus:ring-2 focus:ring-offset-2 font-medium text-secondary-500 hover:text-secondary-900 focus:ring-secondary-900',
+    data: { umami_event: 'Clicked Link: /all', umami_href: '/all' }
+  %>
+
+
+  <% @nav_links.each do |link| %>
+    <%= render 'layouts/normal/nav_link', url: link.url, name: link.name %>
+  <% end %>
+
+
+</div>

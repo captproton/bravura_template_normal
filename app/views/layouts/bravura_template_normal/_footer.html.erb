@@ -1,0 +1,71 @@
+<footer class="footer relative bg-white py-12 sm:py-16">
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+		<div class="flex flex-col items-center gap-y-8 lg:gap-y-12">
+			<div>
+				<%= link_to root_path, class: 'footer-logo flex items-center', data: { umami_event: 'Clicked Link: /', umami_href: '/' } do %>
+					<%# FIXME: This is a temporary fix for the logo %>
+					<%#= image_tag(current_account.settings_navigation.logo,
+									alt: "Logo",
+									class: "h-8 w-auto mr-1") if current_account.settings_navigation.logo.attached?
+								%>
+
+					<% if @current_account&.settings_navigation&.logo&.attached? %>
+						<%= image_tag(@current_account.settings_navigation.logo, alt: "Logo", class: "h-8 w-auto mr-1") %>
+					<% else %>
+						<%= image_tag('default_logo.png', alt: "Default Logo", class: "h-8 w-auto mr-1") %>
+					<% end %>
+
+					<span class="text-2xl font-bold tracking-tight text-secondary-900"><%= @logo_text %></span>
+				<% end %>
+			</div>
+			<!-- FIXME: Commenting out is a temporary fix for the right nav links -->
+			<!--
+			<ul class="footer-links flex flex-wrap items-center justify-center gap-x-10 gap-y-5">
+				<li class="footer-link footer-link-GENERATED_PAGE footer-link-3fcd12e9-2b30-4b8d-9f02-76ed1ba17043">
+					<%= link_to 'Blog Home', root_path, class: 'text-base font-medium text-secondary-600 transition-all duration-200 hover:text-primary-500', data: { umami_event: 'Clicked Link: /all', umami_href: '/all' } %>
+        </li>
+				<li class="footer-link footer-link-EXTERNAL_LINK footer-link-f227cb3e-479c-47a0-8e50-d3f8c847be45">
+					<%= link_to 'Link', 'https://feather.so', target: "_blank", rel: "noopener", class: 'text-base font-medium text-secondary-600 transition-all duration-200 hover:text-primary-500', data: { umami_event: 'Clicked Link: https://feather.so', umami_href: 'https://feather.so' } %>
+				</li>
+				<li class="footer-link footer-link-EXTERNAL_LINK footer-link-35fb055a-b5d6-4951-a3a3-522c5a1d2cc0">
+					<%= link_to 'Another Link', 'https://feather.so/showcase', target: "_blank", rel: "noopener", class: 'text-base font-medium text-secondary-600 transition-all duration-200 hover:text-primary-500', data: { umami_event: 'Clicked Link: https://feather.so/showcase', umami_href: 'https://feather.so/showcase' } %>
+				</li>
+			</ul>
+			-->
+			<ul class="footer-links flex flex-wrap items-center justify-center gap-x-10 gap-y-5 list-none">
+			  <%# FIXME: This is a temporary fix for the platform links %>
+				<%# Current.account.settings_general.platform_links.each do |platform, url| %>
+					<li>
+						<%#= render partial: 'layouts/normal/footer/platform_link', locals: { url: url, platform: platform } %>
+					</li>
+				<%# end %>
+				<% if @sitemap %>
+					<li>
+						<%= link_to "/_feather/sitemap.xml",
+							target: "_blank", rel: "noopener",
+							class: "inline-flex h-10 w-10 items-center justify-center text-secondary-600 transition-all duration-200 rounded-full hover:bg-primary-50 hover:text-primary-700",
+							data: { umami_event: "Clicked Link: /_feather/sitemap.xml", umami_href: "/_feather/sitemap.xml" } do %>
+							<span class="sr-only">Sitemap</span>
+							<%= render_svg("blog_tempates/normal/sitemap") %>
+						<% end %>
+					</li>
+				<% end %>			</ul>
+			<p class="copyright-notice text-sm text-secondary-600">
+							<%= @copyright_notice %>
+			</p>
+		</div>
+	</div>
+	<a
+		target="_blank"
+		rel="noopener"
+		href="https://feather.so/?utm_source=watermark"
+		class="watermark flex justify-center"
+		data-umami-event="Clicked Link: https://feather.so/?utm_source=watermark"
+		data-umami-href="https://feather.so/?utm_source=watermark"
+	>
+		<button type="button" class="group z-20 flex items-center bg-secondary-900 text-xs font-bold text-white shadow-lg backdrop-blur-lg bottom-2.5 rounded-cta-button-radius px-2 py-1.5 hover:bg-secondary-700 absolute">
+			<span>Published with</span>&nbsp;
+			<span>Bravura</span>
+		</button>
+	</a>
+</footer>

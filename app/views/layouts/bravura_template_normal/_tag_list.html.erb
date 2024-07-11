@@ -1,0 +1,14 @@
+<div class="categories-sidebar lg:sticky lg:col-span-3 lg:top-28">
+  <p class="hidden text-xs font-bold uppercase tracking-widest text-secondary-500 lg:block">Tags</p>
+  <nav class="max-h-[50vh] overflow-y-auto mt-5 space-y-1 hidden lg:block" aria-label="Sidebar">
+    <% tags.each do |tag| %>
+      <%= link_to blog_category_path(tag.name),
+        class: 'group flex w-full items-center text-sm font-medium rounded-lg px-3 py-2 text-secondary-500 hover:bg-secondary-100 hover:text-secondary-900' do %>
+        <span class="truncate"><%= tag.name.humanize %></span>
+        <span class="inline-block bg-white text-xs ml-auto rounded-full py-0.5 px-3">
+          <%= tag.taggings_count %>
+        </span>
+      <% end %>
+    <% end %>
+  </nav>
+</div>

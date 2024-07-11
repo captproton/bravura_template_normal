@@ -1,0 +1,16 @@
+<section class="normal-featured-articles-list bg-secondary-50 pb-12 sm:pb-16 lg:pb-20">
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+		<h2 class="text-xl font-bold text-secondary-900 sm:text-2xl">Featured posts</h2>
+		<div class="featured-articles-wrapper grid grid-cols-1 gap-8 mt-8 xl:grid-cols-2">
+      <%= render partial: '/layouts/normal/index/featured_article_main',
+      locals: { article: articles[0] } if articles[0].present? %>
+
+			<div class="space-y-8">
+        <%= render partial: '/layouts/normal/index/featured_article_normal',
+          locals: { article: articles[1] } if articles[1].present? %>
+        <%= render partial: '/layouts/normal/index/featured_article_normal',
+          locals: { article: @featured_articles[2] } if @featured_articles[2].present? %>
+			</div>
+		</div>
+	</div>
+</section>

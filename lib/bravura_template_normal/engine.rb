@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # lib/bravura_template_normal/engine.rb
+
 require 'bravura_template_base'
 
 module BravuraTemplateNormal
@@ -13,9 +14,6 @@ module BravuraTemplateNormal
     # Configuration options
     mattr_accessor :header_style
     self.header_style = 'default'
-
-    # In Rails 7.1, we don't need to explicitly precompile assets in most cases
-    # The asset pipeline will automatically pick up assets in the app/assets directory
 
     # Add template-specific view paths
     initializer 'bravura_template_normal.add_view_paths' do
@@ -37,6 +35,21 @@ module BravuraTemplateNormal
       if app.config.respond_to?(:bravura_template_base)
         self.header_style = app.config.bravura_template_base.default_header_style
       end
+    end
+
+    # Asset configuration
+    initializer 'bravura_template_normal.assets' do |app|
+      app.config.assets.precompile += %w[
+        bravura_template_normal/application.js
+        bravura_template_normal/application.css
+      ]
+      app.config.assets.paths << root.join('app/assets/builds/bravura_template_normal')
+      app.config.assets.paths << root.join('app', 'assets', 'stylesheets')
+      app.config.assets.paths << root.join('app', 'assets', 'javascripts')
+    end
+
+    initializer 'bravura_template_normal.register_template' do
+      BravuraTemplateBase.register_template('bravura_template_normal')
     end
   end
 end
