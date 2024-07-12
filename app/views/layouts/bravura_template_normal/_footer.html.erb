@@ -19,26 +19,26 @@
 				<% end %>
 			</div>
 			<!-- FIXME: Commenting out is a temporary fix for the right nav links -->
-			<!--
+			<%     @footer_nav_links = [
+      OpenStruct.new(name: 'About', url: 'google.com'),
+      OpenStruct.new(name: 'Contact', url: 'dicemediagroup.com')
+    ]
+
+  %>
 			<ul class="footer-links flex flex-wrap items-center justify-center gap-x-10 gap-y-5">
-				<li class="footer-link footer-link-GENERATED_PAGE footer-link-3fcd12e9-2b30-4b8d-9f02-76ed1ba17043">
-					<%= link_to 'Blog Home', root_path, class: 'text-base font-medium text-secondary-600 transition-all duration-200 hover:text-primary-500', data: { umami_event: 'Clicked Link: /all', umami_href: '/all' } %>
-        </li>
-				<li class="footer-link footer-link-EXTERNAL_LINK footer-link-f227cb3e-479c-47a0-8e50-d3f8c847be45">
-					<%= link_to 'Link', 'https://feather.so', target: "_blank", rel: "noopener", class: 'text-base font-medium text-secondary-600 transition-all duration-200 hover:text-primary-500', data: { umami_event: 'Clicked Link: https://feather.so', umami_href: 'https://feather.so' } %>
-				</li>
-				<li class="footer-link footer-link-EXTERNAL_LINK footer-link-35fb055a-b5d6-4951-a3a3-522c5a1d2cc0">
-					<%= link_to 'Another Link', 'https://feather.so/showcase', target: "_blank", rel: "noopener", class: 'text-base font-medium text-secondary-600 transition-all duration-200 hover:text-primary-500', data: { umami_event: 'Clicked Link: https://feather.so/showcase', umami_href: 'https://feather.so/showcase' } %>
-				</li>
+				<% @footer_nav_links.each do |link| %>
+				  	<li >
+    					<%= render 'layouts/bravura_template_normal/nav_link', url: link.url, name: link.name %>
+					</li>
+  				<% end %>
 			</ul>
-			-->
 			<ul class="footer-links flex flex-wrap items-center justify-center gap-x-10 gap-y-5 list-none">
 			  <%# FIXME: This is a temporary fix for the platform links %>
-				<%# Current.account.settings_general.platform_links.each do |platform, url| %>
+				<% Current.account.settings_general.platform_links.each do |platform, url| %>
 					<li>
-						<%#= render partial: 'layouts/normal/footer/platform_link', locals: { url: url, platform: platform } %>
+						<%= render partial: 'layouts/bravura_template_normal/footer/platform_link', locals: { url: url, platform: platform } %>
 					</li>
-				<%# end %>
+				<% end %>
 				<% if @sitemap %>
 					<li>
 						<%= link_to "/_feather/sitemap.xml",
@@ -46,12 +46,13 @@
 							class: "inline-flex h-10 w-10 items-center justify-center text-secondary-600 transition-all duration-200 rounded-full hover:bg-primary-50 hover:text-primary-700",
 							data: { umami_event: "Clicked Link: /_feather/sitemap.xml", umami_href: "/_feather/sitemap.xml" } do %>
 							<span class="sr-only">Sitemap</span>
-							<%= render_svg("blog_tempates/normal/sitemap") %>
+							<%= render_svg("bravura_template_normal/sitemap") %>
 						<% end %>
+						<%= image_tag("bravura_template_normal/sitemap") %>
 					</li>
 				<% end %>			</ul>
-			<p class="copyright-notice text-sm text-secondary-600">
-							<%= @copyright_notice %>
+			<p class="copyright-notice text-sm text-secondary-600">	
+				<%= current_account.settings_footer.copyright || "Copyright © #{Time.now.year}" %>
 			</p>
 		</div>
 	</div>
