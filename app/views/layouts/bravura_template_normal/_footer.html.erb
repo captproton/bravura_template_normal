@@ -34,11 +34,11 @@
 			</ul>
 			<ul class="footer-links flex flex-wrap items-center justify-center gap-x-10 gap-y-5 list-none">
 			  <%# FIXME: This is a temporary fix for the platform links %>
-				<%# Current.account.settings_general.platform_links.each do |platform, url| %>
+				<% Current.account.settings_general.platform_links.each do |platform, url| %>
 					<li>
-						<%#= render partial: 'layouts/normal/footer/platform_link', locals: { url: url, platform: platform } %>
+						<%= render partial: 'layouts/bravura_template_normal/footer/platform_link', locals: { url: url, platform: platform } %>
 					</li>
-				<%# end %>
+				<% end %>
 				<% if @sitemap %>
 					<li>
 						<%= link_to "/_feather/sitemap.xml",
@@ -51,8 +51,8 @@
 						<%= image_tag("bravura_template_normal/sitemap") %>
 					</li>
 				<% end %>			</ul>
-			<p class="copyright-notice text-sm text-secondary-600">
-							<%= @copyright_notice %>
+			<p class="copyright-notice text-sm text-secondary-600">	
+				<%= current_account.settings_footer.copyright || "Copyright © #{Time.now.year}" %>
 			</p>
 		</div>
 	</div>

@@ -1,0 +1,5 @@
+<%= link_to url, target: "_blank", rel: "noopener", class: "inline-flex h-10 w-10 items-center justify-center text-secondary-600 transition-all duration-200 rounded-full hover:bg-primary-50 hover:text-primary-700", data: { umami_event: "Clicked Link: #{url}", umami_href: url } do %>
+  <span class="sr-only"><%= platform.capitalize %></span>
+  <%= render_svg "bravura_template_normal/#{platform}" %>
+  
+<% end %>
