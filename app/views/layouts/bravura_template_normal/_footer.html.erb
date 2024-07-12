@@ -33,8 +33,8 @@
   				<% end %>
 			</ul>
 			<ul class="footer-links flex flex-wrap items-center justify-center gap-x-10 gap-y-5 list-none">
-			  <%# FIXME: This is a temporary fix for the platform links %>
-				<% Current.account.settings_general.platform_links.each do |platform, url| %>
+				<%# application_helper %>
+				<% social_links.each do |platform, url| %>
 					<li>
 						<%= render partial: 'layouts/bravura_template_normal/footer/platform_link', locals: { url: url, platform: platform } %>
 					</li>
@@ -50,7 +50,8 @@
 						<% end %>
 						<%= image_tag("bravura_template_normal/sitemap") %>
 					</li>
-				<% end %>			</ul>
+				<% end %>			
+			</ul>
 			<p class="copyright-notice text-sm text-secondary-600">	
 				<%= current_account.settings_footer.copyright || "Copyright © #{Time.now.year}" %>
 			</p>
