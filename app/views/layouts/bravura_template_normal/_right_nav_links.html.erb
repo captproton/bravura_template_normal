@@ -5,9 +5,14 @@
     data: { umami_event: 'Clicked Link: /all', umami_href: '/all' }
   %>
 
+  <%     @nav_links = [
+      OpenStruct.new(name: 'About', url: 'google.com'),
+      OpenStruct.new(name: 'Contact', url: 'dicemediagroup.com')
+    ]
 
+  %>
   <% @nav_links.each do |link| %>
-    <%= render 'layouts/normal/nav_link', url: link.url, name: link.name %>
+    <%= render 'layouts/bravura_template_normal/nav_link', url: link.url, name: link.name %>
   <% end %>
 
 
