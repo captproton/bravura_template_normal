@@ -1,0 +1,29 @@
+<%# app/views/authors/index/_authors.html.erb %>
+
+<section class="bg-white py-12 sm:py-16 lg:py-20">
+  <div class="text-center">
+
+<!-- TODO: add after MVP -->
+<!--  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="inline-flex items-center justify-center shadow-sm rounded-lg border border-secondary-300 px-4 py-2 focus-within:ring-1 focus-within:ring-secondary-900 focus-within:border-secondary-900">
+        <label for="sortBy" class="font-medium text-secondary-500">Sort by<!-- -->:</label>
+        <form method="get" action="/authors">
+          <select name="sortBy" id="sortBy" class="block w-full border-none font-semibold text-secondary-900 ml-2 py-0 pl-0 focus:outline-none focus:ring-0">
+            <option selected="" value="" disabled=""></option>
+            <option value="posts">No. of posts</option>
+            <option value="a-z">Name (A-Z)</option>
+            <option value="z-a">Name (Z-A)</option>
+          </select>
+        </form>
+      </div>
+    </div>
+-->
+    <div class="flow-root max-w-2xl mx-auto mt-12">
+      <ul class="divide-secondary-200 -my-6 divide-y">
+        <% @authors.each do |author| %>
+          <%= render partial: '/authors/index/author', locals: { author: author } %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</section>

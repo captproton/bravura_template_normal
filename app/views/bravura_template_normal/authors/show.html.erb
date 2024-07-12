@@ -1,0 +1,21 @@
+<% content_for :title, @author.name %>
+
+<section class="bg-secondary-50 py-12 sm:py-16 lg:py-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <%= render 'authors/show/author_info', author: @author %>
+  </div>
+</section>
+
+<section class="bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <%#= render 'authors/show/notion_page', author: @author %>
+  </div>
+</section>
+
+<section id="all-posts" class="normal-articles-list bg-white py-12 sm:py-16 lg:py-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <%#= render 'authors/show/posts', posts: @posts %>
+  </div>
+</section>
+
+<%#= render 'authors/show/newsletter' %>

@@ -1,0 +1,12 @@
+<h2 class="text-xl font-bold text-secondary-900 sm:text-2xl">All posts</h2>
+<div class="relative grid grid-cols-1 items-start gap-16 mt-8 lg:grid-cols-12">
+  <%= render 'authors/show/sidebar' %>
+  <div class="lg:col-span-9">
+    <div class="articles-grid grid grid-cols-1 gap-8 sm:grid-cols-2 lg:gap-y-12 xl:grid-cols-3">
+      <% @posts.each do |post| %>
+        <%= render 'authors/show/post', post: post %>
+      <% end %>
+    </div>
+    <%= render 'authors/show/pagination' %>
+  </div>
+</div>
