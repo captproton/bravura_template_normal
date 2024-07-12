@@ -1,0 +1,18 @@
+<div class="normal-article group relative">
+  <%= link_to blog_path(post), class: 'article-cover aspect-w-16 aspect-h-8 block overflow-hidden bg-secondary-200 rounded-lg' do %>
+    <% if post.cover.attached? %>
+      <%= image_tag url_for(post.cover), alt: post.title, class: 'h-full w-full object-cover transition-all duration-100 group-hover:opacity-75' %>
+    <% else %>
+      <%= image_tag 'default_avatar.jpg', alt: 'Default Image', class: 'h-full w-full object-cover transition-all duration-100 group-hover:opacity-75' %>
+    <% end %>
+  <% end %>
+
+  <div class="mt-6">
+    <!-- Render post meta (author, publish date) -->
+    <%= link_to blog_path(post), class: 'block mt-4' do %>
+      <h3 class="article-title text-xl font-bold tracking-tight text-secondary-900"><%= post.title %></h3>
+      <p class="article-excerpt text-base font-medium text-secondary-500 line-clamp-3 mt-3"><%= post.excerpt %></p>
+    <% end %>
+    <!-- Render post tags -->
+  </div>
+</div>

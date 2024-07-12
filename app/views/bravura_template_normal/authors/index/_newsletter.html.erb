@@ -1,0 +1,25 @@
+<%# app/views/authors/index/_newsletter.html.erb %>
+<section id="newsletter-in-footer-wrapper" class="newsletter py-12 sm:py-16 lg:py-20 newsletter-in-footer bg-secondary-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="newsletter-metadata max-w-2xl mx-auto text-center">
+      <h2 class="newsletter-headline text-2xl font-bold text-secondary-900 sm:text-3xl lg:text-4xl">Join ⚡️ Feather</h2>
+      <p class="newsletter-subheadline max-w-md text-base font-medium text-secondary-500 mx-auto mt-5">Start your blogging journey with Feather!</p>
+    </div>
+    <input type="hidden" name="publicationId" value="354672083489260121" form="newsletter-in-footer-wrapper-form">
+    <input type="hidden" name="webhookUrl" value="" form="newsletter-in-footer-wrapper-form">
+    <input type="hidden" name="webhookBearerToken" value="" form="newsletter-in-footer-wrapper-form">
+    <input type="hidden" name="newsletterEmailVerification" value="true" form="newsletter-in-footer-wrapper-form">
+    <div class="newsletter-form-wrapper relative max-w-xl mx-auto mt-12">
+      <div class="absolute -inset-2">
+        <div class="h-full w-full rotate-180 opacity-30 blur-lg bg-conic-gradient mx-auto" style="filter:blur(16px)"></div>
+      </div>
+      <form method="post" action="/_feather/login" class="newsletter-form relative" id="newsletter-in-footer-wrapper-form">
+        <input type="email" name="email" id="cta-email" placeholder="Enter your email address" class="newsletter-email block w-full bg-white text-base font-medium text-secondary-900 rounded-cta-button-radius border border-primary-100 px-4 py-3 focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500 sm:py-5" required="" aria-label="Email" value="">
+        <div class="newsletter-subscribe-button mt-4 sm:absolute sm:flex sm:items-center sm:inset-y-0 sm:right-0 sm:mt-0 sm:pr-2">
+          <button type="submit" name="_action" value="login" class="inline-flex w-full items-center justify-center bg-primary-500 text-base font-bold text-primary-50 shadow-sm rounded-cta-button-radius border border-transparent px-5 py-3 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-secondary-900 focus:ring-offset-2 sm:w-auto">Subscribe to newsletter</button>
+        </div>
+      </form>
+    </div>
+    <p class="newsletter-spam-notice text-sm font-medium text-secondary-500 mt-6 text-center">No spam. Unsubscribe at any time.</p>
+  </div>
+</section>
