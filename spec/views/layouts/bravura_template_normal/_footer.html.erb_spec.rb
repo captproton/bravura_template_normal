@@ -20,22 +20,46 @@ RSpec.describe 'layouts/bravura_template_normal/_footer', type: :view do
                                     }, render_svg: '<svg></svg>')
   end
 
-  it 'renders the logo and company name' do
-    render
-    expect(rendered).to have_css('.footer-logo')
-    expect(rendered).to have_content('Company Name')
+  describe 'Footer content' do
+    before do
+      render
+    end
+
+    it 'renders the logo' do
+      expect(rendered).to have_css('.footer-logo')
+    end
+
+    it 'renders the company name' do
+      expect(rendered).to have_content('Company Name')
+    end
   end
 
-  it 'renders the footer navigation links' do
-    render
-    expect(rendered).to have_link('About', href: 'https://example.com/about')
-    expect(rendered).to have_link('Contact', href: 'https://example.com/contact')
+  describe 'Footer navigation links' do
+    before do
+      render
+    end
+
+    it 'renders the About link' do
+      expect(rendered).to have_link('About', href: 'https://example.com/about')
+    end
+
+    it 'renders the Contact link' do
+      expect(rendered).to have_link('Contact', href: 'https://example.com/contact')
+    end
   end
 
-  it 'renders the social media links' do
-    render
-    expect(rendered).to have_css("a[href='https://facebook.com']")
-    expect(rendered).to have_css("a[href='https://twitter.com']")
+  describe 'Social media links' do
+    before do
+      render
+    end
+
+    it 'renders the Facebook link' do
+      expect(rendered).to have_css("a[href='https://facebook.com']")
+    end
+
+    it 'renders the Twitter link' do
+      expect(rendered).to have_css("a[href='https://twitter.com']")
+    end
   end
 
   it 'renders the sitemap link when @sitemap is true' do
@@ -55,9 +79,17 @@ RSpec.describe 'layouts/bravura_template_normal/_footer', type: :view do
     expect(rendered).to have_content(footer_settings.copyright)
   end
 
-  it 'renders the "Published with Bravura" watermark' do
-    render
-    expect(rendered).to have_content('Published with Bravura')
-    expect(rendered).to have_css("a[href='https://feather.so/?utm_source=watermark']")
+  describe 'Published with Bravura watermark' do
+    before do
+      render
+    end
+
+    it 'renders the "Published with Bravura" text' do
+      expect(rendered).to have_content('Published with Bravura')
+    end
+
+    it 'includes a link to Feather.so with the correct UTM source' do
+      expect(rendered).to have_css("a[href='https://feather.so/?utm_source=watermark']")
+    end
   end
 end
