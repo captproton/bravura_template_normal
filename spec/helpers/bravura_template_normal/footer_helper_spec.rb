@@ -13,9 +13,20 @@ RSpec.describe BravuraTemplateNormal::FooterHelper, type: :helper do
   end
 
   describe '#social_links' do
-    it 'returns a hash of social media links' do
+    it 'returns a hash' do
       expect(helper.social_links).to be_a(Hash)
-      expect(helper.social_links.keys).to include(:facebook, :twitter, :instagram)
+    end
+
+    it 'includes :facebook in the keys' do
+      expect(helper.social_links.keys).to include(:facebook)
+    end
+
+    it 'includes :twitter in the keys' do
+      expect(helper.social_links.keys).to include(:twitter)
+    end
+
+    it 'includes :instagram in the keys' do
+      expect(helper.social_links.keys).to include(:instagram)
     end
   end
 
