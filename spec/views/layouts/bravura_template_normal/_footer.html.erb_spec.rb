@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'layouts/bravura_template_normal/_footer', type: :view do
@@ -12,12 +14,10 @@ RSpec.describe 'layouts/bravura_template_normal/_footer', type: :view do
              OpenStruct.new(name: 'About', url: 'https://example.com/about'),
              OpenStruct.new(name: 'Contact', url: 'https://example.com/contact')
            ])
-    allow(view).to receive(:current_footer_settings).and_return(footer_settings)
-    allow(view).to receive(:social_links).and_return({
-                                                       facebook: 'https://facebook.com',
-                                                       twitter: 'https://twitter.com'
-                                                     })
-    allow(view).to receive(:render_svg).and_return('<svg></svg>')
+    allow(view).to receive_messages(current_footer_settings: footer_settings, social_links: {
+                                      facebook: 'https://facebook.com',
+                                      twitter: 'https://twitter.com'
+                                    }, render_svg: '<svg></svg>')
   end
 
   it 'renders the logo and company name' do

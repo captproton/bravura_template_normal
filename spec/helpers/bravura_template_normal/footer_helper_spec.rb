@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# spec/helpers/bravura_template_normal/footer_helper_spec.rb
 require 'rails_helper'
 
 RSpec.describe BravuraTemplateNormal::FooterHelper, type: :helper do
@@ -6,8 +9,7 @@ RSpec.describe BravuraTemplateNormal::FooterHelper, type: :helper do
   let(:navigation_settings) { create(:settings_navigation, account:) }
 
   before do
-    allow(helper).to receive(:current_account).and_return(account)
-    allow(helper).to receive(:current_footer_settings).and_return(footer_settings)
+    allow(helper).to receive_messages(current_account: account, current_footer_settings: footer_settings)
   end
 
   describe '#social_links' do
@@ -26,7 +28,7 @@ RSpec.describe BravuraTemplateNormal::FooterHelper, type: :helper do
   describe '#logo_image_tag' do
     context 'when logo is attached' do
       before do
-        navigation_settings.logo.attach(io: File.open(Rails.root.join('spec/fixtures/files/logo.png')),
+        navigation_settings.logo.attach(io: Rails.root.join('spec/fixtures/files/logo.png').open,
                                         filename: 'logo.png')
       end
 

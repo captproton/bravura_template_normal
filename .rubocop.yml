@@ -15,3 +15,6 @@ Rails:
   Enabled: true
 
 # Add or adjust rules as needed
+RSpec/VerifiedDoubles:
+  Exclude:
+    - 'spec/helpers/bravura_template_normal/application_helper_spec.rb'
