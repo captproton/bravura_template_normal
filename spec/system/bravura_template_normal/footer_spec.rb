@@ -12,22 +12,44 @@ RSpec.describe 'Footer', type: :system do
     driven_by(:rack_test)
   end
 
-  it 'displays the logo and company name' do
-    visit root_path
-    expect(page).to have_css('.footer-logo')
-    expect(page).to have_content(account.name)
+  describe 'Footer' do
+    it 'displays the logo' do
+      visit root_path
+      expect(page).to have_css('.footer-logo')
+    end
+
+    it 'displays the company name' do
+      visit root_path
+      expect(page).to have_content(account.name)
+    end
   end
 
-  it 'displays the footer navigation links' do
-    visit root_path
-    expect(page).to have_link('About')
-    expect(page).to have_link('Contact')
+  describe 'Footer navigation links' do
+    before do
+      visit root_path
+    end
+
+    it 'displays the About link' do
+      expect(page).to have_link('About')
+    end
+
+    it 'displays the Contact link' do
+      expect(page).to have_link('Contact')
+    end
   end
 
-  it 'displays the social media links' do
-    visit root_path
-    expect(page).to have_link('', href: footer_settings.facebook_url)
-    expect(page).to have_link('', href: footer_settings.twitter_url)
+  describe 'Social media links in the footer' do
+    before do
+      visit root_path
+    end
+
+    it 'displays the Facebook link' do
+      expect(page).to have_link('', href: footer_settings.facebook_url)
+    end
+
+    it 'displays the Twitter link' do
+      expect(page).to have_link('', href: footer_settings.twitter_url)
+    end
   end
 
   it 'displays the sitemap link when enabled' do
@@ -47,9 +69,17 @@ RSpec.describe 'Footer', type: :system do
     expect(page).to have_content(footer_settings.copyright)
   end
 
-  it 'displays the "Published with Bravura" watermark' do
-    visit root_path
-    expect(page).to have_content('Published with Bravura')
-    expect(page).to have_link('', href: 'https://feather.so/?utm_source=watermark')
+  describe 'Published with Bravura watermark' do
+    before do
+      visit root_path
+    end
+
+    it 'displays the "Published with Bravura" text' do
+      expect(page).to have_content('Published with Bravura')
+    end
+
+    it 'includes a link to Feather.so with the correct UTM source' do
+      expect(page).to have_link('', href: 'https://feather.so/?utm_source=watermark')
+    end
   end
 end
