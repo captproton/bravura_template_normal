@@ -5,30 +5,25 @@ require 'rails_helper'
 RSpec.describe 'Footer', type: :system do
   let(:account) { create(:account) }
   let!(:footer_settings) { create(:settings_footer, account:) }
-  let!(:navigation_settings) { create(:settings_navigation, account:) }
 
   before do
+    create(:settings_navigation, account:)
     allow_any_instance_of(ApplicationController).to receive(:current_account).and_return(account)
     driven_by(:rack_test)
+    visit root_path
   end
 
   describe 'Footer' do
     it 'displays the logo' do
-      visit root_path
       expect(page).to have_css('.footer-logo')
     end
 
     it 'displays the company name' do
-      visit root_path
       expect(page).to have_content(account.name)
     end
   end
 
   describe 'Footer navigation links' do
-    before do
-      visit root_path
-    end
-
     it 'displays the About link' do
       expect(page).to have_link('About')
     end

@@ -10,14 +10,7 @@ module BravuraTemplateNormal
 
     before do
       stub_const('Current', double(account:))
-
-      stub_const('BravuraTemplateNormal::Settings::General', Class.new do
-        def self.find_by(*)
-          # This method will be stubbed in each test
-        end
-      end)
-
-      allow(BravuraTemplateNormal::Settings::General).to receive(:find_by).and_return(general_settings)
+      allow(account).to receive(:settings_general).and_return(general_settings)
     end
 
     describe '#favicon_url' do
