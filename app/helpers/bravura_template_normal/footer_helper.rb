@@ -40,5 +40,12 @@ module BravuraTemplateNormal
     def sitemap?
       !!@sitemap
     end
+
+    private
+
+    # Define the missing default_copyright method
+    def default_copyright
+      "© #{Time.current.year} Test Account. All rights reserved."
+    end
   end
 end

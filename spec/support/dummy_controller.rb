@@ -2,6 +2,7 @@
 
 class DummyController < ApplicationController
   def index
+    # rubocop:disable Rails/RenderInline
     render inline: <<-ERB
       <!DOCTYPE html>
       <html>
@@ -10,5 +11,6 @@ class DummyController < ApplicationController
         </body>
       </html>
     ERB
+    # rubocop:enable Rails/RenderInline
   end
 end

@@ -64,13 +64,17 @@ RSpec.configure do |config|
     Rails.application.config.assets.compile = true
     Rails.application.config.assets.digest = false
 
-    # Stub the asset_path helper to return a dummy path
-    allow_any_instance_of(ActionView::Base).to receive(:asset_path) do |_, asset|
-      "/assets/#{asset}"
+    # Stub ActionView::Base methods
+    allow(ActionView::Base).to receive(:new).and_wrap_original do |original_method, *args|
+      instance = original_method.call(*args)
+      allow(instance).to receive(:asset_path) do |asset|
+        "/assets/#{asset}"
+      end
+      allow(instance).to receive(:image_tag).and_return(
+        '<img src="/assets/default_logo.png" alt="Default Logo" class="h-8 w-auto mr-1">'
+      )
+      instance
     end
-
-    # Stub the image_tag helper
-    allow_any_instance_of(ActionView::Base).to receive(:image_tag).and_return('<img src="/assets/default_logo.png" alt="Default Logo" class="h-8 w-auto mr-1">')
 
     # Ensure the engine's view paths are included
     ActionController::Base.prepend_view_path(BravuraTemplateNormal::Engine.root.join('app', 'views'))
