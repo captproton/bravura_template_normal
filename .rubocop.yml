@@ -1,17 +1,29 @@
-# .rubocop.yml
 require:
   - rubocop-rails
   - rubocop-capybara
   - rubocop-factory_bot
   - rubocop-rspec
 
-
 AllCops:
   NewCops: enable
   TargetRubyVersion: 3.2
+  Exclude:
+    - 'bin/**/*'
+    - 'db/**/*'
+    - 'vendor/**/*'
+    - 'spec/dummy/**/*'
 
 # Rails-specific configuration
 Rails:
   Enabled: true
 
 # Add or adjust rules as needed
+Metrics/ModuleLength:
+  Max: 150
+
+RSpec/VerifiedDoubles:
+  Enabled: false
+
+Rails/HelperInstanceVariable:
+  Exclude:
+    - 'app/helpers/bravura_template_normal/footer_helper.rb'

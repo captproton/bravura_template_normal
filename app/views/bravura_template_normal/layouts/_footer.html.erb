@@ -1,3 +1,4 @@
+<%# app/views/layouts/bravura_template_normal/_footer.html.erb %>
 <footer class="footer relative bg-white py-12 sm:py-16">
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="flex flex-col items-center gap-y-8 lg:gap-y-12">
@@ -33,10 +34,10 @@
   				<% end %>
 			</ul>
 			<ul class="footer-links flex flex-wrap items-center justify-center gap-x-10 gap-y-5 list-none">
-			  <%# FIXME: This is a temporary fix for the platform links %>
-				<% Current.account.settings_general.platform_links.each do |platform, url| %>
+				<%# application_helper %>
+				<% social_links.each do |platform, url| %>
 					<li>
-						<%= render partial: 'layouts/bravura_template_normal/footer/platform_link', locals: { url: url, platform: platform } %>
+						<%= render partial: 'bravura_template_normal/layouts/footer/platform_link', locals: { url: url, platform: platform } %>
 					</li>
 				<% end %>
 				<% if @sitemap %>
@@ -50,9 +51,10 @@
 						<% end %>
 						<%= image_tag("bravura_template_normal/sitemap") %>
 					</li>
-				<% end %>			</ul>
-			<p class="copyright-notice text-sm text-secondary-600">	
-				<%= current_account.settings_footer.copyright || "Copyright © #{Time.now.year}" %>
+				<% end %>			
+			</ul>
+			<p class="copyright-notice text-sm text-secondary-600">
+			  <%= copyright %>
 			</p>
 		</div>
 	</div>

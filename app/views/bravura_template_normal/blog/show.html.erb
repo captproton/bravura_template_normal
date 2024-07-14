@@ -1,6 +1,15 @@
-<%#= render "layouts/#{@current_blog_template.name}/show/section_hero" %>
-<%#= render "layouts/#{@current_blog_template.name}/show/section_article_content" %>
-<%#= render "layouts/#{@current_blog_template.name}/show/section_related_articles" %>
+
+<% content_for :head do %>
+  <%= render "meta_tags" , locals: {og_url: "", 
+    og_title: "", 
+    image_url: "", 
+    og_description: "", 
+    og_image_alt:"", 
+    og_type: ""
+    }
+  %>
+<% end %>
+
 <%= render "bravura_template_normal/blog/show/section_hero" %>
 <%= render "bravura_template_normal/blog/show/section_article_content" %>
 <%= render "bravura_template_normal/blog/show/section_related_articles" %>

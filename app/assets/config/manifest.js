@@ -3,3 +3,4 @@
 //= link_tree ../builds
 //= link bravura_template_normal/application.css
 //= link bravura_template_normal/application.js
+//= link default_logo.png
