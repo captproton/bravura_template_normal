@@ -5,18 +5,16 @@ require 'rails_helper'
 
 module BravuraTemplateNormal
   RSpec.describe ApplicationHelper, type: :helper do
-    let(:account) { double('Account', id: 1) }
+    let(:account) { double('Account', id: 1, settings_general: general_settings) }
     let(:general_settings) { double('Settings::General', favicon: nil, platform_links: nil) }
 
     before do
-      stub_const('Current', double(account:))
-      allow(account).to receive(:settings_general).and_return(general_settings)
+      stub_const('Current', double('Current', account:))
     end
-    # rubocop:enable RSpec/VerifiedDoubles
 
     describe '#favicon_url' do
       context 'when favicon is attached' do
-        let(:favicon) { double('favicon', attached?: true) }
+        let(:favicon) { double('ActiveStorage::Attached', attached?: true) }
 
         before do
           allow(general_settings).to receive(:favicon).and_return(favicon)
