@@ -1,3 +1,4 @@
+<%# app/views/layouts/bravura_template_normal/_footer.html.erb %>
 <footer class="footer relative bg-white py-12 sm:py-16">
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="flex flex-col items-center gap-y-8 lg:gap-y-12">
@@ -52,8 +53,8 @@
 					</li>
 				<% end %>			
 			</ul>
-			<p class="copyright-notice text-sm text-secondary-600">	
-				<%= current_account.settings_footer.copyright || "Copyright © #{Time.now.year}" %>
+			<p class="copyright-notice text-sm text-secondary-600">
+			  <%= copyright %>
 			</p>
 		</div>
 	</div>

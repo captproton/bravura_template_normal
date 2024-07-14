@@ -1,29 +1,45 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'ostruct'
+
+# Define a helper module for the specs
+module SpecHelper
+  def render_svg(*)
+    '<svg></svg>'
+  end
+
+  def root_path
+    '/'
+  end
+end
 
 RSpec.describe 'layouts/bravura_template_normal/_footer', type: :view do
-  let(:account) { create(:account) }
-  let(:footer_settings) { create(:settings_footer, account:) }
-  let(:navigation_settings) { create(:settings_navigation, account:) }
+  let(:logo) { double('Logo', attached?: false) }
+  let(:settings_navigation) { double('Settings::Navigation', logo:) }
+  let(:account) { double('Account', id: 1, name: 'Test Account', settings_navigation:) }
+  let(:footer_settings) { double('Settings::Footer', copyright: '© 2023 Test Account') }
 
   before do
-    assign(:current_account, account)
-    assign(:logo_text, 'Company Name')
+    helper.extend(SpecHelper)
+
+    allow(helper).to receive(:current_account).and_return(account)
+    allow(helper).to receive(:current_footer_settings).and_return(footer_settings)
+    allow(helper).to receive(:social_links).and_return({
+                                                         facebook: 'https://facebook.com',
+                                                         twitter: 'https://twitter.com'
+                                                       })
+
     assign(:footer_nav_links, [
              OpenStruct.new(name: 'About', url: 'https://example.com/about'),
              OpenStruct.new(name: 'Contact', url: 'https://example.com/contact')
            ])
-    allow(view).to receive_messages(current_footer_settings: footer_settings, social_links: {
-                                      facebook: 'https://facebook.com',
-                                      twitter: 'https://twitter.com'
-                                    }, render_svg: '<svg></svg>')
+
+    stub_const('Current', double(account:))
   end
 
   describe 'Footer content' do
-    before do
-      render
-    end
+    before { render }
 
     it 'renders the logo' do
       expect(rendered).to have_css('.footer-logo')
@@ -35,9 +51,7 @@ RSpec.describe 'layouts/bravura_template_normal/_footer', type: :view do
   end
 
   describe 'Footer navigation links' do
-    before do
-      render
-    end
+    before { render }
 
     it 'renders the About link' do
       expect(rendered).to have_link('About', href: 'https://example.com/about')
@@ -49,9 +63,7 @@ RSpec.describe 'layouts/bravura_template_normal/_footer', type: :view do
   end
 
   describe 'Social media links' do
-    before do
-      render
-    end
+    before { render }
 
     it 'renders the Facebook link' do
       expect(rendered).to have_css("a[href='https://facebook.com']")
@@ -80,9 +92,7 @@ RSpec.describe 'layouts/bravura_template_normal/_footer', type: :view do
   end
 
   describe 'Published with Bravura watermark' do
-    before do
-      render
-    end
+    before { render }
 
     it 'renders the "Published with Bravura" text' do
       expect(rendered).to have_content('Published with Bravura')
