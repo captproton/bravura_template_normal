@@ -1,4 +1,3 @@
-# spec/rails_helper.rb
 # frozen_string_literal: true
 
 require 'spec_helper'
@@ -22,11 +21,6 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
 
-  # This line includes the ViewRendering module from RSpec::Rails into the RSpec configuration.
-  # It enables your controller specs to render views directly, allowing you to test the view content
-  # that is rendered by your controllers without having to move to feature specs.
-  config.include RSpec::Rails::ViewRendering
-
   # Include FactoryBot methods
   config.include FactoryBot::Syntax::Methods
 
@@ -38,6 +32,9 @@ RSpec.configure do |config|
 
   # Include CurrentStub in all tests
   config.include CurrentStub
+
+  # Include UrlHelpers in system tests
+  config.include UrlHelpers, type: :system
 
   # Database Cleaner configuration
   config.before(:suite) do
@@ -59,19 +56,31 @@ RSpec.configure do |config|
     end
   end
 
-  # Ensure that if we are running js tests, we are using latest webpack assets
-  # This will use the defaults of :js and :server_rendering meta tags
+  # Configure system tests
   config.before(:each, type: :system) do
     driven_by :rack_test
+
+    # Configure asset compilation for test environment
+    Rails.application.config.assets.compile = true
+    Rails.application.config.assets.digest = false
+
+    # Stub the asset_path helper to return a dummy path
+    allow_any_instance_of(ActionView::Base).to receive(:asset_path) do |_, asset|
+      "/assets/#{asset}"
+    end
+
+    # Stub the image_tag helper
+    allow_any_instance_of(ActionView::Base).to receive(:image_tag).and_return('<img src="/assets/default_logo.png" alt="Default Logo" class="h-8 w-auto mr-1">')
+
+    # Ensure the engine's view paths are included
+    ActionController::Base.prepend_view_path(BravuraTemplateNormal::Engine.root.join('app', 'views'))
   end
 
   config.before(:each, :js, type: :system) do
     driven_by :selenium_chrome_headless
   end
 
-  # Include the ViewRendering module from RSpec::Rails in the RSpec configuration.
-  # This enables controller specs to render views directly, allowing you to test the view content
-  # rendered by your controllers without having to move to feature specs.
+  # Include the ViewRendering module
   config.include RSpec::Rails::ViewRendering
 
   # Include custom files in the RSpec configuration
