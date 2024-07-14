@@ -1,3 +1,14 @@
+<% content_for :head do %>
+  <%= render "meta_tags" , locals: {og_url: "", 
+    og_title: "", 
+    image_url: "", 
+    og_description: "", 
+    og_image_alt:"", 
+    og_type: ""
+    }
+  %>
+<% end %>
+
 <%= render "bravura_template_normal/blog/index/section_hero" %>
 <%= render "bravura_template_normal/blog/index/section_articles" %>
 <%= (@design_settings&.blog_theme&.name.to_s.presence || "base") %>

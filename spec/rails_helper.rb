@@ -22,6 +22,11 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
 
+  # This line includes the ViewRendering module from RSpec::Rails into the RSpec configuration.
+  # It enables your controller specs to render views directly, allowing you to test the view content
+  # that is rendered by your controllers without having to move to feature specs.
+  config.include RSpec::Rails::ViewRendering
+
   # Include FactoryBot methods
   config.include FactoryBot::Syntax::Methods
 
@@ -63,6 +68,15 @@ RSpec.configure do |config|
   config.before(:each, :js, type: :system) do
     driven_by :selenium_chrome_headless
   end
+
+  # Include the ViewRendering module from RSpec::Rails in the RSpec configuration.
+  # This enables controller specs to render views directly, allowing you to test the view content
+  # rendered by your controllers without having to move to feature specs.
+  config.include RSpec::Rails::ViewRendering
+
+  # Include custom files in the RSpec configuration
+  Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+  config.include SystemSpecHelper, type: :system
 end
 
 # Set default url options for the test environment

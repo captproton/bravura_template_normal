@@ -3,8 +3,9 @@
 
   <head>
     <%# content that is common to all templates goes here in the blog_head %>
-    <%= render partial: "/shared/blog_head", locals: {article: @article, current_account: current_account} %>
+    <%= render partial: "shared/head", locals: {current_account: current_account} %>
     <!-- Include your common stylesheets, meta tags, etc. here -->
+    <%= yield :head %>
 
   </head>
   <body class="overflow-x-hidden bg-white font-sans text-secondary-900 antialiased">
@@ -20,7 +21,7 @@
 
       <footer>
         <!-- Footer content goes here -->
-        <%= render partial: "/layouts/bravura_template_normal/footer" %>
+        <%= render partial: "bravura_template_normal/layouts/footer" %>
 
       </footer>
     </div>

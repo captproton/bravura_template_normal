@@ -33,9 +33,13 @@ FactoryBot.define do
     meta_description { Faker::Lorem.paragraph }
     hide_cta { Faker::Boolean.boolean }
     canonical_url { Faker::Internet.url }
-    account { create(:account, :company) }
+    account # Modified line: implicit association to :account factory
 
     after(:build) do |post|
+      # If specific traits or customizations are needed, they can be applied here.
+      # For example, to use the :company trait from the :account factory:
+      post.account ||= FactoryBot.create(:account, :company)
+
       account_user = create(:account_user, account: post.account, user: create(:user))
       post.author = account_user.user
       post.cover.attach(io: Rails.root.join('spec/fixtures/files/logo.png').open, filename: 'cover.jpg',

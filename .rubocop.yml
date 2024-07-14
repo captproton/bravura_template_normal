@@ -1,10 +1,8 @@
-# .rubocop.yml
 require:
   - rubocop-rails
   - rubocop-capybara
   - rubocop-factory_bot
   - rubocop-rspec
-
 
 AllCops:
   NewCops: enable
@@ -15,6 +13,12 @@ Rails:
   Enabled: true
 
 # Add or adjust rules as needed
+Metrics/ModuleLength:
+  Max: 150
+
 RSpec/VerifiedDoubles:
+  Enabled: false
+
+Rails/HelperInstanceVariable:
   Exclude:
-    - 'spec/helpers/bravura_template_normal/application_helper_spec.rb'
+    - 'app/helpers/bravura_template_normal/footer_helper.rb'

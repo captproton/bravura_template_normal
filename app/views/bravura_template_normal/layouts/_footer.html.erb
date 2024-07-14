@@ -37,7 +37,7 @@
 				<%# application_helper %>
 				<% social_links.each do |platform, url| %>
 					<li>
-						<%= render partial: 'layouts/bravura_template_normal/footer/platform_link', locals: { url: url, platform: platform } %>
+						<%= render partial: 'bravura_template_normal/layouts/footer/platform_link', locals: { url: url, platform: platform } %>
 					</li>
 				<% end %>
 				<% if @sitemap %>

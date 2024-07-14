@@ -43,5 +43,8 @@ module Dummy
     # config.eager_load_paths << Rails.root.join("extras")
     # Don't generate system test files.
     config.generators.system_tests = nil
+    # Set BravuraTemplateBase to use the Dummy::Application as the application
+    config.assets.paths << BravuraTemplateNormal::Engine.root.join('app/assets/stylesheets')
+    config.assets.paths << BravuraTemplateNormal::Engine.root.join('app/assets/javascripts')
   end
 end

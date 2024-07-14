@@ -12,6 +12,7 @@ module BravuraTemplateNormal
       stub_const('Current', double(account:))
       allow(account).to receive(:settings_general).and_return(general_settings)
     end
+    # rubocop:enable RSpec/VerifiedDoubles
 
     describe '#favicon_url' do
       context 'when favicon is attached' do

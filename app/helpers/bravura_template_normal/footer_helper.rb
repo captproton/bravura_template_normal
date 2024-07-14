@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 # app/helpers/bravura_template_normal/footer_helper.rb
-# Provides view helper methods that span across all public-facing pages for the BravuraTemplateNormal engine
 
+# Provides helper methods for the footer section in the BravuraTemplateNormal theme.
 module BravuraTemplateNormal
+  # This module contains helper methods used in rendering the footer part of the BravuraTemplateNormal theme.
   module FooterHelper
     def social_links
       current_footer_settings&.social_media_links || {}
@@ -37,15 +38,7 @@ module BravuraTemplateNormal
     end
 
     def sitemap?
-      # Your logic to determine if sitemap should be shown
-      # For example:
       !!@sitemap
-    end
-
-    private
-
-    def default_copyright
-      "© #{Time.current.year} #{Current.account.name}. All rights reserved."
     end
   end
 end
