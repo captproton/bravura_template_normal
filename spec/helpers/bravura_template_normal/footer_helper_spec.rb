@@ -1,9 +1,10 @@
+# spec/helpers/bravura_template_normal/footer_helper_spec.rb
 require 'rails_helper'
 
 module BravuraTemplateNormal
   RSpec.describe FooterHelper, type: :helper do
-    let(:account) { double('Account', id: 1) }
-    let(:footer_settings) { double('Settings::Footer', social_media_links: {}) }
+    let(:account) { double('Account', id: 1, name: 'Test Account') }
+    let(:footer_settings) { double('Settings::Footer', social_media_links: nil, copyright: nil) }
     let(:navigation_settings) { double('Settings::Navigation', logo: nil) }
 
     before do
@@ -13,20 +14,77 @@ module BravuraTemplateNormal
     end
 
     describe '#social_links' do
-      let(:social_media_links) { { facebook: 'https://facebook.com/example', twitter: 'https://twitter.com/example' } }
+      context 'when footer settings exist' do
+        let(:social_media_links) { { facebook: 'https://facebook.com/example', twitter: 'https://twitter.com/example' } }
 
-      before do
-        allow(footer_settings).to receive(:social_media_links).and_return(social_media_links)
+        before do
+          allow(footer_settings).to receive(:social_media_links).and_return(social_media_links)
+        end
+
+        it 'returns the social media links from footer settings' do
+          expect(helper.social_links).to eq(social_media_links)
+        end
       end
 
-      it 'returns the social media links from footer settings' do
-        expect(helper.social_links).to eq(social_media_links)
+      context 'when footer settings do not exist' do
+        before do
+          allow(account).to receive(:settings_footer).and_return(nil)
+        end
+
+        it 'returns an empty hash' do
+          expect(helper.social_links).to eq({})
+        end
+      end
+
+      context 'when social_media_links is nil' do
+        before do
+          allow(footer_settings).to receive(:social_media_links).and_return(nil)
+        end
+
+        it 'returns an empty hash' do
+          expect(helper.social_links).to eq({})
+        end
       end
     end
 
     describe '#current_footer_settings' do
       it 'returns the footer settings for the current account' do
         expect(helper.current_footer_settings).to eq(footer_settings)
+      end
+    end
+
+    describe '#copyright' do
+      context 'when footer settings exist and have a copyright' do
+        let(:custom_copyright) { 'Custom Copyright 2023' }
+
+        before do
+          allow(footer_settings).to receive(:copyright).and_return(custom_copyright)
+        end
+
+        it 'returns the custom copyright' do
+          expect(helper.copyright).to eq(custom_copyright)
+        end
+      end
+
+      context 'when footer settings do not exist' do
+        before do
+          allow(account).to receive(:settings_footer).and_return(nil)
+          allow(Time).to receive(:current).and_return(Time.new(2023))
+        end
+
+        it 'returns a default copyright message' do
+          expect(helper.copyright).to eq('© 2023 Test Account. All rights reserved.')
+        end
+      end
+
+      context 'when copyright is nil' do
+        before do
+          allow(Time).to receive(:current).and_return(Time.new(2023))
+        end
+
+        it 'returns a default copyright message' do
+          expect(helper.copyright).to eq('© 2023 Test Account. All rights reserved.')
+        end
       end
     end
 
