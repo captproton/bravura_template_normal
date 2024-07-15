@@ -8,7 +8,9 @@
     <%= yield :head %>
 
   </head>
-  <body class="overflow-x-hidden bg-white font-sans text-secondary-900 antialiased">
+  <body class="overflow-x-hidden bg-white font-sans text-secondary-900 antialiased 
+    <%= current_account_site_mode %>"
+    >
 		<div style="position:fixed;z-index:9999;top:16px;left:16px;right:16px;bottom:16px;pointer-events:none"></div>
       <!-- Site navigation content goes here -->
       <%= render partial: "/layouts/bravura_template_normal/top_nav" %>

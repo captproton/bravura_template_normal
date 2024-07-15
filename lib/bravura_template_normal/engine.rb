@@ -26,6 +26,7 @@ module BravuraTemplateNormal
     initializer 'bravura_template_normal.helpers' do
       ActiveSupport.on_load(:action_controller) do
         helper BravuraTemplateNormal::ApplicationHelper
+        helper BravuraTemplateNormal::FooterHelper
       end
     end
 
@@ -50,6 +51,13 @@ module BravuraTemplateNormal
 
     initializer 'bravura_template_normal.register_template' do
       BravuraTemplateBase.register_template('bravura_template_normal')
+    end
+
+    # helper methods for the main app
+    initializer 'your_engine.action_controller' do |app|
+      ActiveSupport.on_load :action_controller do
+        helper SettingsDesignHelper
+      end
     end
   end
 end
