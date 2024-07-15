@@ -15,6 +15,10 @@ module BravuraTemplateNormal
     mattr_accessor :header_style
     self.header_style = 'default'
 
+    # Settings provider configuration
+    config.bravura_template_normal = ActiveSupport::OrderedOptions.new
+    config.bravura_template_normal.settings_provider = -> { SettingsService.for_account(Current.account) }
+
     # Add template-specific view paths
     initializer 'bravura_template_normal.add_view_paths' do
       ActiveSupport.on_load(:action_controller) do
@@ -26,7 +30,6 @@ module BravuraTemplateNormal
     initializer 'bravura_template_normal.helpers' do
       ActiveSupport.on_load(:action_controller) do
         helper BravuraTemplateNormal::ApplicationHelper
-        helper BravuraTemplateNormal::FooterHelper
       end
     end
 
@@ -51,13 +54,6 @@ module BravuraTemplateNormal
 
     initializer 'bravura_template_normal.register_template' do
       BravuraTemplateBase.register_template('bravura_template_normal')
-    end
-
-    # helper methods for the main app
-    initializer 'your_engine.action_controller' do |_app|
-      ActiveSupport.on_load :action_controller do
-        helper SettingsDesignHelper
-      end
     end
   end
 end
