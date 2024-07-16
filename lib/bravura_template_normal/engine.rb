@@ -3,6 +3,7 @@
 # lib/bravura_template_normal/engine.rb
 
 require 'bravura_template_base'
+require 'inline_svg'
 
 module BravuraTemplateNormal
   # Engine class for the BravuraTemplateNormal module.
@@ -45,7 +46,8 @@ module BravuraTemplateNormal
     initializer 'bravura_template_normal.assets' do |app|
       app.config.assets.precompile += %w[
         bravura_template_normal/application.js
-        bravura_template_normal/application.css
+        bravura_template_normal/application.tailwind.css
+        bravura_template_normal/default_logo.png
       ]
       app.config.assets.paths << root.join('app/assets/builds/bravura_template_normal')
       app.config.assets.paths << root.join('app', 'assets', 'stylesheets')

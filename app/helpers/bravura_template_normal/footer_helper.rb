@@ -27,10 +27,10 @@ module BravuraTemplateNormal
       if navigation_settings&.logo&.attached?
         image_tag(navigation_settings.logo, alt: 'Logo', class: 'footer-logo')
       else
-        image_tag('default_logo.png', alt: 'Default Logo', class: 'footer-logo')
+        image_tag('bravura_template_normal/default_logo.png', alt: 'Default Logo', class: 'footer-logo')
       end
     rescue StandardError
-      image_tag('default_logo.png', alt: 'Default Logo', class: 'footer-logo')
+      image_tag('bravura_template_normal/default_logo.png', alt: 'Default Logo', class: 'footer-logo')
     end
 
     def render_sitemap_link

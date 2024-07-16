@@ -1,15 +1,19 @@
 # frozen_string_literal: true
 
 # spec/helpers/bravura_template_normal/application_helper_spec.rb
+
 require 'rails_helper'
 
 module BravuraTemplateNormal
   RSpec.describe ApplicationHelper, type: :helper do
-    let(:account) { double('Account', id: 1, settings_general: general_settings) }
-    let(:general_settings) { double('Settings::General', favicon: nil, platform_links: nil) }
+    let(:mock_settings) do
+      {
+        general: double('Settings::General', favicon: nil, platform_links: nil)
+      }
+    end
 
     before do
-      stub_const('Current', double('Current', account:))
+      allow(helper).to receive(:all_settings).and_return(mock_settings)
     end
 
     describe '#favicon_url' do
@@ -17,7 +21,7 @@ module BravuraTemplateNormal
         let(:favicon) { double('ActiveStorage::Attached', attached?: true) }
 
         before do
-          allow(general_settings).to receive(:favicon).and_return(favicon)
+          allow(mock_settings[:general]).to receive(:favicon).and_return(favicon)
           allow(helper).to receive(:rails_blob_url).with(favicon).and_return('http://example.com/favicon.ico')
         end
 
@@ -42,7 +46,7 @@ module BravuraTemplateNormal
         let(:platform_links) { { facebook: 'https://facebook.com/example', twitter: 'https://twitter.com/example' } }
 
         before do
-          allow(general_settings).to receive(:platform_links).and_return(platform_links)
+          allow(mock_settings[:general]).to receive(:platform_links).and_return(platform_links)
         end
 
         it 'returns the platform links from general settings' do

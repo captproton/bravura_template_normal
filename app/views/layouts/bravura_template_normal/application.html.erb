@@ -1,33 +1,33 @@
+<!-- app/views/layouts/bravura_template_normal/application.html.erb -->
+
 <!DOCTYPE html>
-<%= content_tag :html, dir: "ltr", lang: "en", class: "scroll-smooth antialiased selection:bg-primary-500 selection:text-primary-50", data: { theme: @blog_theme, graytheme: "gray#{@shade_of_gray}", mode: @site_mode } do %>
-
+<%= content_tag :html,
+  dir: "ltr",
+  lang: "en",
+  class: "scroll-smooth antialiased selection:bg-primary-500 selection:text-primary-50",
+  data: {
+    theme: all_settings[:design]&.blog_theme,
+    graytheme: "gray#{all_settings[:design]&.shades_of_gray&.name}",
+    mode: all_settings[:design]&.site_mode&.name 
+  } do %>
   <head>
-    <%# content that is common to all templates goes here in the blog_head %>
-    <%= render partial: "shared/head", locals: {current_account: current_account} %>
-    <!-- Include your common stylesheets, meta tags, etc. here -->
+    <%= render partial: "shared/head" %>
+    <%= stylesheet_link_tag 'bravura_template_normal/application.tailwind', media: 'all', 'data-turbo-track': 'reload' %>
+
     <%= yield :head %>
-
   </head>
-  <body class="overflow-x-hidden bg-white font-sans text-secondary-900 antialiased 
-    <%= current_account_site_mode %>"
-    >
-		<div style="position:fixed;z-index:9999;top:16px;left:16px;right:16px;bottom:16px;pointer-events:none"></div>
-      <!-- Site navigation content goes here -->
-      <%= render partial: "/layouts/bravura_template_normal/top_nav" %>
+  <body class="overflow-x-hidden bg-white font-sans text-secondary-900 antialiased <%= current_account_site_mode %>">
+    <div style="position:fixed;z-index:9999;top:16px;left:16px;right:16px;bottom:16px;pointer-events:none"></div>
+    <%= render partial: "/layouts/bravura_template_normal/top_nav" %>
+    <main>
+      <%= yield %>
+      <%#= render partial: "layouts/default/cta" %>
+      <%= render partial: "bravura_template_normal/shared/default/cta" %>
 
-      <main>
-        <!-- Main content goes here -->
-        <%= yield %>
-        <%= render partial: "layouts/default/cta" %>
-      </main>
-
-      <footer>
-        <!-- Footer content goes here -->
-        <%= render partial: "bravura_template_normal/layouts/footer" %>
-
-      </footer>
-    </div>
-    <!-- Include your common JavaScript files, scripts, etc. here -->
+    </main>
+    <footer>
+      <%#= render partial: "bravura_template_normal/layouts/footer" %>
+    </footer>
     <%= javascript_include_tag 'application' %>
     <%= render partial: "/layouts/bravura_template_normal/javascript" %>
   </body>

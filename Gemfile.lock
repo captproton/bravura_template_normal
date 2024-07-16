@@ -11,6 +11,7 @@ PATH
   specs:
     bravura_template_normal (0.1.0)
       bravura_template_base (~> 0.1.0)
+      inline_svg (~> 1.9)
       jsbundling-rails (~> 1.2.1)
       rails (>= 7.1, < 7.3)
 
@@ -133,6 +134,9 @@ GEM
     hashdiff (1.1.0)
     i18n (1.14.5)
       concurrent-ruby (~> 1.0)
+    inline_svg (1.9.0)
+      activesupport (>= 3.0)
+      nokogiri (>= 1.6)
     io-console (0.7.2)
     irb (1.14.0)
       rdoc (>= 4.0.0)
