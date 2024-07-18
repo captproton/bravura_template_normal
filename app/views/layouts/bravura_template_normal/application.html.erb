@@ -1,34 +1,49 @@
-<!-- app/views/layouts/bravura_template_normal/application.html.erb -->
-
 <!DOCTYPE html>
+<!-- Debug Info -->
+<% if Rails.env.development? %>
+  <% begin %>
+    <pre style="display:none;">
+      all_settings defined: <%= defined?(all_settings) %>
+      all_settings class: <%= all_settings.class if defined?(all_settings) %>
+      current_account_site_mode defined: <%= defined?(current_account_site_mode) %>
+      current_account_site_mode: <%= current_account_site_mode if defined?(current_account_site_mode) %>
+    </pre>
+  <% rescue => e %>
+    <pre style="display:none;">Error in debug info: <%= e.message %></pre>
+  <% end %>
+<% end %>
 <%= content_tag :html,
   dir: "ltr",
   lang: "en",
-  class: "scroll-smooth antialiased selection:bg-primary-500 selection:text-primary-50",
+  class: "scroll-smooth antialiased",
   data: {
-    theme: all_settings[:design]&.blog_theme,
-    graytheme: "gray#{all_settings[:design]&.shades_of_gray&.name}",
-    mode: all_settings[:design]&.site_mode&.name 
+    theme: (defined?(all_settings) && all_settings.is_a?(Hash) ? all_settings[:design]&.blog_theme : nil),
+    graytheme: (defined?(all_settings) && all_settings.is_a?(Hash) ? "gray#{all_settings[:design]&.shades_of_gray&.name}" : nil),
+    mode: (defined?(current_account_site_mode) ? current_account_site_mode : 'system')
   } do %>
   <head>
     <%= render partial: "shared/head" %>
     <%= stylesheet_link_tag 'bravura_template_normal/application.tailwind', media: 'all', 'data-turbo-track': 'reload' %>
-
     <%= yield :head %>
   </head>
-  <body class="overflow-x-hidden bg-white font-sans text-secondary-900 antialiased <%= current_account_site_mode %>">
-    <div style="position:fixed;z-index:9999;top:16px;left:16px;right:16px;bottom:16px;pointer-events:none"></div>
-    <%= render partial: "/layouts/bravura_template_normal/top_nav" %>
+  <body class="overflow-x-hidden bg-white dark:bg-gray-900 text-secondary-900 dark:text-secondary-100 antialiased">
+    <div class="fixed inset-4 pointer-events-none z-50"></div>
+    <%= render partial: "/layouts/bravura_template_normal/top_nav" rescue nil %>
     <main>
       <%= yield %>
-      <%#= render partial: "layouts/default/cta" %>
       <%= render partial: "bravura_template_normal/shared/default/cta" %>
-
     </main>
-    <footer>
-      <%#= render partial: "bravura_template_normal/layouts/footer" %>
-    </footer>
-    <%= javascript_include_tag 'application' %>
-    <%= render partial: "/layouts/bravura_template_normal/javascript" %>
+      <%= render partial: "bravura_template_normal/layouts/footer" %>
+    <%= javascript_include_tag 'application' rescue nil %>
+    <%= render partial: "/layouts/bravura_template_normal/javascript" rescue nil %>
+    <script>
+      (function() {
+        var htmlElement = document.documentElement;
+        var currentMode = htmlElement.dataset.mode;
+        if (currentMode === 'dark') {
+          htmlElement.classList.add('dark');
+        }
+      })();
+    </script>
   </body>
 <% end %>

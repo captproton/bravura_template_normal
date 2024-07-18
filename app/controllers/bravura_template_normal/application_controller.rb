@@ -1,26 +1,35 @@
-# app/controllers/bravura_template_normal/application_controller.rb
-
 module BravuraTemplateNormal
   class ApplicationController < ::ApplicationController
     include Rails.application.routes.url_helpers
-    helper_method :current_account, :current_account_site_mode, :all_settings, :favicon_url
+    helper BravuraTemplateNormal::ApplicationHelper
+    helper_method :all_settings, :current_account_site_mode, :favicon_url
+
+    before_action :debug_settings
 
     private
 
     def current_account
       @current_account ||= begin
         super
-      rescue StandardError
+      rescue StandardError => e
+        Rails.logger.error "Error fetching current_account: #{e.message}"
         nil
       end
     end
 
     def current_account_site_mode
-      all_settings[:design]&.site_mode&.name&.downcase == 'dark' ? 'dark-mode' : 'light-mode'
+      (all_settings[:design]&.site_mode&.site_theme&.downcase || 'system').to_s
     end
 
     def all_settings
-      @all_settings ||= BravuraTemplateNormal::Engine.config.bravura_template_normal.settings_provider.call
+      @all_settings ||= begin
+        settings = BravuraTemplateNormal::Engine.config.bravura_template_normal.settings_provider.call
+        Rails.logger.debug { "All settings: #{settings.inspect}" }
+        settings
+      rescue StandardError => e
+        Rails.logger.error "Error fetching settings: #{e.message}"
+        {}
+      end
     end
 
     def favicon_url
@@ -29,6 +38,11 @@ module BravuraTemplateNormal
       else
         asset_path('default_favicon.png')
       end
+    end
+
+    def debug_settings
+      Rails.logger.debug { "Current account site mode: #{current_account_site_mode}" }
+      Rails.logger.debug { "All settings: #{all_settings.inspect}" }
     end
   end
 end

@@ -4,7 +4,7 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 /* Import custom styles */
-/* @import "template.styles"; */
+@import "template.styles";
 
 
 
