@@ -16,6 +16,15 @@ module BravuraTemplateNormal
     mattr_accessor :header_style
     self.header_style = 'default'
 
+    # Initializes the BravuraTemplateNormal engine by extending ActionController to include the ApplicationHelper.
+    # This ensures that ApplicationHelper's methods are available in all controllers and views,
+    # providing a consistent set of helper methods across the application.
+    initializer 'bravura_template_normal.action_controller' do |app|
+      ActiveSupport.on_load :action_controller do
+        helper ::ApplicationHelper
+      end
+    end
+
     # Settings provider configuration
     config.bravura_template_normal = ActiveSupport::OrderedOptions.new
     config.bravura_template_normal.settings_provider = -> { SettingsService.for_account(Current.account) }
@@ -27,10 +36,11 @@ module BravuraTemplateNormal
       end
     end
 
-    # Include template-specific helpers
+    # Initializes the BravuraTemplateNormal engine by extending ActionController to include the ApplicationHelper.
+    # This ensures that ApplicationHelper's methods are available in all controllers and views, providing a consistent set of helper methods across the application.
     initializer 'bravura_template_normal.helpers' do
       ActiveSupport.on_load(:action_controller) do
-        helper BravuraTemplateNormal::ApplicationHelper
+        helper ::ApplicationHelper
       end
     end
 

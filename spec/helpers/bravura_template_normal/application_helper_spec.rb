@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 # spec/helpers/bravura_template_normal/application_helper_spec.rb
-
 require 'rails_helper'
 
 module BravuraTemplateNormal
   RSpec.describe ApplicationHelper, type: :helper do
+    include BravuraTemplateNormal::ApplicationHelper
+
+    let(:main_app) { double('main_app') }
     let(:mock_settings) do
       {
         general: double('Settings::General', favicon: nil, platform_links: nil)
@@ -13,31 +15,14 @@ module BravuraTemplateNormal
     end
 
     before do
+      allow(helper).to receive(:main_app).and_return(main_app)
       allow(helper).to receive(:all_settings).and_return(mock_settings)
     end
 
     describe '#favicon_url' do
-      context 'when favicon is attached' do
-        let(:favicon) { double('ActiveStorage::Attached', attached?: true) }
-
-        before do
-          allow(mock_settings[:general]).to receive(:favicon).and_return(favicon)
-          allow(helper).to receive(:rails_blob_url).with(favicon).and_return('http://example.com/favicon.ico')
-        end
-
-        it 'returns the favicon url' do
-          expect(helper.favicon_url).to eq('http://example.com/favicon.ico')
-        end
-      end
-
-      context 'when favicon is not attached' do
-        before do
-          allow(helper).to receive(:asset_path).with('default_favicon.png').and_return('/assets/default_favicon.png')
-        end
-
-        it 'returns the default favicon path' do
-          expect(helper.favicon_url).to eq('/assets/default_favicon.png')
-        end
+      it 'delegates to main_app' do
+        expect(main_app).to receive(:favicon_url).and_return('http://example.com/favicon.ico')
+        expect(helper.favicon_url).to eq('http://example.com/favicon.ico')
       end
     end
 
@@ -58,6 +43,18 @@ module BravuraTemplateNormal
         it 'returns an empty hash' do
           expect(helper.social_links).to eq({})
         end
+      end
+    end
+
+    describe 'method delegation' do
+      it 'delegates unknown methods to main_app' do
+        expect(main_app).to receive(:unknown_method).with('arg').and_return('result')
+        expect(helper.unknown_method('arg')).to eq('result')
+      end
+
+      it 'raises NoMethodError for methods not in main_app' do
+        allow(main_app).to receive(:respond_to?).with(:non_existent_method).and_return(false)
+        expect { helper.non_existent_method }.to raise_error(NoMethodError)
       end
     end
   end
