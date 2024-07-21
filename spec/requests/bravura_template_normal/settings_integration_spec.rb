@@ -43,21 +43,22 @@ RSpec.describe 'Settings Integration', type: :request do
     allow_any_instance_of(BravuraTemplateNormal::ApplicationController).to receive(:current_account).and_return(mock_account)
     allow_any_instance_of(BravuraTemplateNormal::ApplicationController).to receive(:current_account_site_mode).and_return('dark-mode')
     allow_any_instance_of(BravuraTemplateNormal::ApplicationController).to receive(:favicon_url).and_return('/favicon.ico')
+
+    # Mock main_app on the controller
+    allow_any_instance_of(BravuraTemplateNormal::ApplicationController).to receive(:main_app).and_return(
+      double('main_app', render_svg: '<svg>Mocked SVG</svg>')
+    )
+
     allow_any_instance_of(ActionView::Base).to receive(:image_tag).and_return('<img src="mock_image.png" alt="Mock Image">')
     allow_any_instance_of(ActionView::Base).to receive(:asset_path).and_return('/mock_asset_path')
 
-    # Mock the render_svg method
-    allow_any_instance_of(BravuraTemplateNormal::ApplicationHelper).to receive(:render_svg) do |_, filename, options|
-      "<svg>Mocked SVG for #{filename}</svg>"
-    end
-
     BravuraTemplateNormal::Engine.config.bravura_template_normal.settings_provider = -> { mock_settings }
-    get root_path
+    get bravura_template_normal.root_path
   end
 
   it 'includes the Blog Home link' do
     expect(response.body).to include('Blog Home')
-    # expect(response.body).to include('nav-link-3fcd12e9-1b30-4b8d-9f02-76ed1ba17043')
+    expect(response.body).to include('<svg>Mocked SVG</svg>')
   end
 
   it 'returns a successful response' do
@@ -65,13 +66,11 @@ RSpec.describe 'Settings Integration', type: :request do
     expect(response).to have_http_status(:success)
   end
 
-  # FIXME:
   it 'includes the Tailwind CSS stylesheet' do
     pending 'part of larger body of work'
     expect(response.body).to include('stylesheet_link_tag "bravura_template_normal/application.tailwind"')
   end
 
-  # FIXME:
   it 'includes the logo image' do
     pending 'part of larger body of work'
     expect(response.body).to include('<img src="mock_image.png" alt="Mock Image">')
@@ -79,7 +78,6 @@ RSpec.describe 'Settings Integration', type: :request do
 
   it 'includes the meta charset tag' do
     pending 'part of larger body of work'
-
     expect(response.body).to include('<meta charset="utf-8">')
   end
 
@@ -108,16 +106,13 @@ RSpec.describe 'Settings Integration', type: :request do
     expect(response.body).to include('--content-font-family: Inter, sans-serif')
   end
 
-  # FIXME:
   it 'includes the live content stylesheet' do
     pending 'part of larger body of work'
     expect(response.body).to include('stylesheet_link_tag "live_content/normal"')
   end
 
-  # FIXME:
   it 'includes the blog app stylesheet' do
     pending 'part of larger body of work'
-
     expect(response.body).to include('stylesheet_link_tag "blog_app/app-DTZPEUWL"')
   end
 

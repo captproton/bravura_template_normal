@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
 # app/helpers/bravura_template_normal/application_helper.rb
+
 module BravuraTemplateNormal
-  # ApplicationHelper contains helper methods for use across the BravuraTemplateNormal engine.
-  # These methods assist in rendering common elements such as favicons and social links.
   module ApplicationHelper
     include SettingsHelper
-    include ::ApplicationHelper # This includes the main app's ApplicationHelper
+    include ::ApplicationHelper
 
     def method_missing(method, *, &)
       if main_app.respond_to?(method)
@@ -24,18 +23,32 @@ module BravuraTemplateNormal
       all_settings[:general]&.platform_links || {}
     end
 
-    # Uncomment and adjust if you need a custom render_svg method
-    # def render_svg(filename, options = {})
-    #   if defined?(inline_svg_tag)
-    #     options[:title] ||= filename.underscore.humanize
-    #     options[:aria] = true
-    #     options[:nocomment] = true
-    #     options[:class] = options.fetch(:styles, 'fill-current text-gray-500')
-    #     inline_svg_tag(filename, options)
-    #   else
-    #     # Fallback for when inline_svg_tag is not available (e.g., in tests)
-    #     '<svg>SVG not available in this environment</svg>'
-    #   end
-    # end
+    def render_svg(name, options = {})
+      options[:title] ||= name.underscore.humanize
+      options[:aria] = true
+      options[:nocomment] = true
+      options[:class] = options.fetch(:styles, 'fill-current text-gray-500')
+      filename = "#{name}.svg"
+
+      # Check if inline_svg_tag is available
+      if respond_to?(:inline_svg_tag)
+        inline_svg_tag(filename, options)
+      else
+        # Fallback method if inline_svg_tag is not available
+        render_svg_fallback(filename, options)
+      end
+    end
+
+    private
+
+    def render_svg_fallback(filename, options)
+      file_path = Rails.root.join('app', 'assets', 'images', filename)
+      if File.exist?(file_path)
+        file_contents = File.read(file_path)
+        content_tag(:span, file_contents.html_safe, class: options[:class], title: options[:title])
+      else
+        content_tag(:span, "SVG not found: #{filename}", class: 'svg-not-found')
+      end
+    end
   end
 end

@@ -40,7 +40,7 @@ module BravuraTemplateNormal
     # This ensures that ApplicationHelper's methods are available in all controllers and views, providing a consistent set of helper methods across the application.
     initializer 'bravura_template_normal.helpers' do
       ActiveSupport.on_load(:action_controller) do
-        helper ::ApplicationHelper
+        helper BravuraTemplateNormal::ApplicationHelper
       end
     end
 

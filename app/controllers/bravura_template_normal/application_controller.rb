@@ -44,5 +44,17 @@ module BravuraTemplateNormal
       Rails.logger.debug { "Current account site mode: #{current_account_site_mode}" }
       Rails.logger.debug { "All settings: #{all_settings.inspect}" }
     end
+
+    def method_missing(method, *, &)
+      if main_app.respond_to?(method)
+        main_app.send(method, *, &)
+      else
+        super
+      end
+    end
+
+    def respond_to_missing?(method, include_private = false)
+      main_app.respond_to?(method) || super
+    end
   end
 end
