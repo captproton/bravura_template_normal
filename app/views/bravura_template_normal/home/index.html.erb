@@ -28,7 +28,8 @@
   </main>
 
   <footer>
-    <div class="copyright"><%= footer_copyright %></div>
+    <%# copyright setting goes here %>
+    <div class="copyright"><%#= footer_copyright %></div>
     <div class="social-links">
       <% social_links.each do |platform, url| %>
         <a href="<%= url %>"><%= platform.to_s.capitalize %></a>

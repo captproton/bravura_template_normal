@@ -58,6 +58,10 @@ RSpec.describe 'Settings Integration', type: :request do
 
   it 'includes the Blog Home link' do
     expect(response.body).to include('Blog Home')
+  end
+
+  it 'includes the SVG icon' do
+    pending 'part of larger body of work'
     expect(response.body).to include('<svg>Mocked SVG</svg>')
   end
 
