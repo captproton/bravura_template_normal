@@ -1,6 +1,8 @@
-# app/helpers/bravura_template_normal/settings_helper.rb
+# frozen_string_literal: true
 
 module BravuraTemplateNormal
+  # SettingsHelper provides methods to access and interpret various settings
+  # for the BravuraTemplateNormal engine
   module SettingsHelper
     def all_settings
       @all_settings ||= BravuraTemplateNormal::Engine.config.bravura_template_normal.settings_provider.call

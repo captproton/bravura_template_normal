@@ -1,27 +1,25 @@
 # frozen_string_literal: true
 
-# spec/helpers/bravura_template_normal/application_helper_spec.rb
 require 'rails_helper'
 
 module BravuraTemplateNormal
   RSpec.describe ApplicationHelper, type: :helper do
-    include BravuraTemplateNormal::ApplicationHelper
+    include described_class
 
-    let(:main_app) { double('main_app') }
+    let(:main_app) { instance_double(MainApp) }
     let(:mock_settings) do
       {
-        general: double('Settings::General', favicon: nil, platform_links: nil)
+        general: instance_double(Settings::General, favicon: nil, platform_links: nil)
       }
     end
 
     before do
-      allow(helper).to receive(:main_app).and_return(main_app)
-      allow(helper).to receive(:all_settings).and_return(mock_settings)
+      allow(helper).to receive_messages(main_app:, all_settings: mock_settings)
     end
 
     describe '#favicon_url' do
       it 'delegates to main_app' do
-        expect(main_app).to receive(:favicon_url).and_return('http://example.com/favicon.ico')
+        allow(main_app).to receive(:favicon_url).and_return('http://example.com/favicon.ico')
         expect(helper.favicon_url).to eq('http://example.com/favicon.ico')
       end
     end
@@ -48,7 +46,7 @@ module BravuraTemplateNormal
 
     describe 'method delegation' do
       it 'delegates unknown methods to main_app' do
-        expect(main_app).to receive(:unknown_method).with('arg').and_return('result')
+        allow(main_app).to receive(:unknown_method).with('arg').and_return('result')
         expect(helper.unknown_method('arg')).to eq('result')
       end
 

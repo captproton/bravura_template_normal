@@ -1,4 +1,8 @@
+# frozen_string_literal: true
+
 module BravuraTemplateNormal
+  # ApplicationController for BravuraTemplateNormal
+  # Handles common functionality and settings for the template
   class ApplicationController < ::ApplicationController
     include Rails.application.routes.url_helpers
     helper BravuraTemplateNormal::ApplicationHelper

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# lib/bravura_template_normal/engine.rb
-
 require 'bravura_template_base'
 require 'inline_svg'
 
@@ -16,10 +14,11 @@ module BravuraTemplateNormal
     mattr_accessor :header_style
     self.header_style = 'default'
 
-    # Initializes the BravuraTemplateNormal engine by extending ActionController to include the ApplicationHelper.
-    # This ensures that ApplicationHelper's methods are available in all controllers and views,
-    # providing a consistent set of helper methods across the application.
-    initializer 'bravura_template_normal.action_controller' do |app|
+    # Initializes the BravuraTemplateNormal engine by extending ActionController
+    # to include the ApplicationHelper. This ensures that ApplicationHelper's methods
+    # are available in all controllers and views, providing a consistent set of
+    # helper methods across the application.
+    initializer 'bravura_template_normal.action_controller' do |_app|
       ActiveSupport.on_load :action_controller do
         helper ::ApplicationHelper
       end
@@ -33,14 +32,6 @@ module BravuraTemplateNormal
     initializer 'bravura_template_normal.add_view_paths' do
       ActiveSupport.on_load(:action_controller) do
         append_view_path Engine.root.join('app', 'views', 'bravura_template_normal')
-      end
-    end
-
-    # Initializes the BravuraTemplateNormal engine by extending ActionController to include the ApplicationHelper.
-    # This ensures that ApplicationHelper's methods are available in all controllers and views, providing a consistent set of helper methods across the application.
-    initializer 'bravura_template_normal.helpers' do
-      ActiveSupport.on_load(:action_controller) do
-        helper BravuraTemplateNormal::ApplicationHelper
       end
     end
 

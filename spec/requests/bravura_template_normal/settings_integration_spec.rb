@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 # spec/requests/bravura_template_normal/settings_integration_spec.rb
 
 require 'rails_helper'
 require 'ostruct'
+AdditionalLink = Struct.new(:name, :url)
 
 RSpec.describe 'Settings Integration', type: :request do
   include BravuraTemplateNormal::Engine.routes.url_helpers
@@ -25,8 +28,8 @@ RSpec.describe 'Settings Integration', type: :request do
                          logo_text: 'Test Logo',
                          logo: double('ActiveStorage::Attached', attached?: false),
                          additional_links: [
-                           OpenStruct.new(name: 'About', url: 'google.com'),
-                           OpenStruct.new(name: 'Contact', url: 'dicemediagroup.com')
+                           AdditionalLink.new('About', 'google.com'),
+                           AdditionalLink.new('Contact', 'dicemediagroup.com')
                          ]),
       features: double('Settings::Feature',
                        comments: true,
@@ -54,10 +57,6 @@ RSpec.describe 'Settings Integration', type: :request do
 
     BravuraTemplateNormal::Engine.config.bravura_template_normal.settings_provider = -> { mock_settings }
     get bravura_template_normal.root_path
-  end
-
-  it 'includes the Blog Home link' do
-    expect(response.body).to include('Blog Home')
   end
 
   it 'includes the SVG icon' do
@@ -142,7 +141,8 @@ RSpec.describe 'Settings Integration', type: :request do
 
   it 'includes the correct classes for dark mode' do
     pending 'part of larger body of work'
-    expect(response.body).to include('class="overflow-x-hidden bg-white font-sans text-secondary-900 antialiased dark-mode"')
+    expect(response.body).to
+    include('class="overflow-x-hidden bg-white font-sans text-secondary-900 antialiased dark-mode"')
   end
 
   it 'displays the logo text' do

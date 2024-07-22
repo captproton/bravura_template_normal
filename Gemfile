@@ -40,3 +40,5 @@ end
 # gem "debug", ">= 1.0.0"
 
 gem 'rubocop-rspec_rails', '~> 2.30'
+
+gem 'loofah', '~> 2.22'

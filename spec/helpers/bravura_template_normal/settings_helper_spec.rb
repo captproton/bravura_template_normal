@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # spec/helpers/bravura_template_normal/settings_helper_spec.rb
 
 require 'rails_helper'

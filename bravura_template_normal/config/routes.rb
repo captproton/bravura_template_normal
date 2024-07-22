@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # bravura_template_normal/config/routes.rb
 BravuraTemplateNormal::Engine.routes.draw do
   root to: 'home#index'

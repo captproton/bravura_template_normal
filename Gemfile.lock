@@ -396,6 +396,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   launchy
+  loofah (~> 2.22)
   puma
   rspec-rails
   rubocop-capybara (~> 2.21)
