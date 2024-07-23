@@ -3,13 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= publication_name %></title>
+  <title><%= get_setting('general.publication_name')  %></title>
 </head>
-<body class="<%= dark_mode? ? 'dark-mode' : 'light-mode' %>">
+<body class="system">
   <header>
-    <div class="logo-text"><%= logo_text %></div>
-    <% if show_cta_button? %>
-      <button class="cta-button"><%= cta_button_text %></button>
+    <div class="logo-text"><%= get_setting('navigation.logo_text')  %></div>
+    <% if get_setting('cta_button_setup.show_cta_button') %>
+      <button class="cta-button"><%= get_setting('cta_button_setup.cta_button_text') %></button>
     <% end %>
   </header>
 
