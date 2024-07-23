@@ -16,7 +16,7 @@ gem 'sprockets-rails'
 gem 'rubocop-rails-omakase', require: false
 
 # Include bravura_template_base from git
-gem 'bravura_template_base', github: 'captproton/bravura_template_base', branch: 'main'
+gem 'bravura_template_base', github: 'captproton/bravura_template_base', branch: 'feature/settings_design2'
 
 group :development, :test do
   gem 'brakeman', require: false
@@ -40,3 +40,5 @@ end
 # gem "debug", ">= 1.0.0"
 
 gem 'rubocop-rspec_rails', '~> 2.30'
+
+gem 'loofah', '~> 2.22'

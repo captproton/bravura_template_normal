@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Default Blog</title>
+  <!-- Include your common stylesheets, meta tags, etc. here -->
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <h1>My Default Blog</h1>
+  <header>
+    <!-- Header content goes here -->
+    <%= render 'layouts/default/header' %>
+    <%# FIXME: This is a temporary fix to render the header for the blog template. %>
+    <%= render "blog_templates/normal/header" %>
+    <%#= render "blog_templates/#{current_blog_template.name}/header" %>
+
+  </header>
+
+  <main>
+    <!-- Main content goes here -->
+    <%= yield %>
+  </main>
+
+  <footer>
+    <!-- Footer content goes here -->
+    <%= render 'layouts/default/footer' %>
+  </footer>
+
+  <!-- Include your common JavaScript files, scripts, etc. here -->
+  <%= javascript_include_tag 'application' %>
+</body>
+</html>

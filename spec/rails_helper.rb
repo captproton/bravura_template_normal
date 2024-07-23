@@ -2,11 +2,12 @@
 
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('dummy/config/environment', __dir__)
+require File.expand_path('./dummy/config/environment', __dir__)
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
 require 'faker'
 require 'factory_bot_rails'
+require BravuraTemplateNormal::Engine.root.join('config/routes')
 
 # Load support files
 Dir[BravuraTemplateNormal::Engine.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
@@ -24,8 +25,8 @@ RSpec.configure do |config|
   # Include FactoryBot methods
   config.include FactoryBot::Syntax::Methods
 
-  # Include engine routes in tests
-  config.include BravuraTemplateNormal::Engine.routes.url_helpers
+  # Include engine routes in tests with a namespace
+  config.include BravuraTemplateNormal::Engine.routes.url_helpers, as: 'bravura_template_normal'
 
   # Include the dummy app's routes in tests
   config.include Rails.application.routes.url_helpers
@@ -59,7 +60,6 @@ RSpec.configure do |config|
   # Configure system tests
   config.before(:each, type: :system) do
     driven_by :rack_test
-
     # Configure asset compilation for test environment
     Rails.application.config.assets.compile = true
     Rails.application.config.assets.digest = false
@@ -71,7 +71,7 @@ RSpec.configure do |config|
         "/assets/#{asset}"
       end
       allow(instance).to receive(:image_tag).and_return(
-        '<img src="/assets/default_logo.png" alt="Default Logo" class="h-8 w-auto mr-1">'
+        '<img src="/assets/bravura_template_normal/default_logo.png" alt="Default Logo" class="h-8 w-auto mr-1">'
       )
       instance
     end
@@ -84,11 +84,22 @@ RSpec.configure do |config|
     driven_by :selenium_chrome_headless
   end
 
+  # Remove or comment out this block
+  # config.before(:each, type: :request) do
+  #   allow_any_instance_of(ActionView::Base).to receive(:main_app).and_return(
+  #     double(
+  #       root_path: '/',
+  #       routes: double(url_helpers: Rails.application.routes.url_helpers)
+  #     )
+  #   )
+  # end
+
   # Include the ViewRendering module
   config.include RSpec::Rails::ViewRendering
 
   # Include custom files in the RSpec configuration
   Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+
   config.include SystemSpecHelper, type: :system
 end
 

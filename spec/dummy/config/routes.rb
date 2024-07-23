@@ -1,5 +1,4 @@
-# frozen_string_literal: true
-
+# spec/dummy/config/routes.rb
 Rails.application.routes.draw do
-  mount BravuraTemplateNormal::Engine => '/bravura_template_normal'
+  mount BravuraTemplateNormal::Engine => "/bravura_template_normal"
 end

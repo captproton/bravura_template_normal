@@ -34,7 +34,7 @@ RSpec.describe 'Footer', type: :system do
   #   allow(BravuraTemplateNormal::FooterHelper).to receive(:new).and_return(footer_helper)
   #   allow(footer_helper).to receive_messages(
   #     current_footer_settings: footer_settings,
-  #     logo_image_tag: '<img src="/assets/default_logo.png" alt="Default Logo" class="h-8 w-auto mr-1">',
+  #     logo_image_tag: '<img src="/assets/bravura_template_normal/default_logo.png" alt="Default Logo" class="h-8 w-auto mr-1">',
   #     copyright: '© 2023 Test Account'
   #   )
 
