@@ -34,7 +34,7 @@ group :development, :test do
   # rubocop recommendations
   gem 'rubocop-capybara', '~> 2.21', require: false
   gem 'rubocop-factory_bot', '~> 2.26', '>= 2.26.1', require: false
-  gem 'rubocop-rspec', '~> 3.0', '>= 3.0.2', require: false
+  gem 'rubocop-rspec', '~> 3.0', require: false
 end
 # Start debugger with binding.b [https://github.com/ruby/debug]
 # gem "debug", ">= 1.0.0"
